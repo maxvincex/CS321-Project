@@ -131,5 +131,28 @@ function resultMethod(classFiltered, timeFiltered, connectFiltered) {
 
   
 
+/**
+Main method to execute the full matching process for a student.,
+Steps:,
+1. Filters students by class using classFilter
+2. Filters the result by availability using timeFilter
+3. Filters again by connections using connectFilter
+4. Combines all results into a prioritized list using resultMethod
+@function mainMatch,
+@param {Array<Object>} studentDatabase - The full list of registered students.,
+@param {string} targetClass - The class the student is looking to match in.,
+@param {number} myId - The ID of the current student.,
+@param {string|Array<string>} myAvailability - The current student's availability.,
+@param {Array<number>} myConnections - List of student IDs the current student is connected with.,
+@returns {Array<Object>|null} - Final prioritized list of matches, or null if no students found in the same class.
+*/
+function mainMatch(studentDatabase, targetClass, myId, myAvailability, myConnections) {
+  const classFiltered = classFilter(studentDatabase, targetClass, myId);
+  if (!classFiltered) return null;
 
+  const timeFiltered = timeFilter(classFiltered, myAvailability);
+  const connectFiltered = connectFilter(timeFiltered, myConnections);
+
+  return resultMethod(classFiltered, timeFiltered, connectFiltered);
+}
 
