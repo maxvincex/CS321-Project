@@ -1,14 +1,17 @@
 class Student {
   
   
-  constructor(username, password, major, classes = [], timeAvailable = "") {
+  constructor(username, password, major, classes = [], timeAvailable = "", id) {
     this.username = username;
     this.password = password;
     this.major = major;
     this.classes = classes;
     this.timeAvailable = timeAvailable;
     this.friends = [];
+    this.id = id;
   }
+
+}
 
 
   /**
@@ -73,7 +76,7 @@ function timeFilter(classFilteredList, myAvailability) {
 function connectFilter(timeFilteredList, myConnections) {
   if (!Array.isArray(timeFilteredList) || !Array.isArray(myConnections)) return null;
 
-  const filtered = timeFilteredList.filter(student => myConnections.includes(student.id));
+  const filtered = timeFilteredList.filter(student => friends.includes(student.id));
   return filtered.length > 0 ? filtered : null;
 }
 
@@ -129,4 +132,4 @@ function resultMethod(classFiltered, timeFiltered, connectFiltered) {
   
 
 
-}
+
