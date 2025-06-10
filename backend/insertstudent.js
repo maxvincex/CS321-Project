@@ -45,6 +45,7 @@ connection.execute(
 
 
 
+
 function addStudent(username, password, courses, availability, friends) {
   const sql = `
     INSERT INTO students (Username, Password, Courses, Availability, Friends)
