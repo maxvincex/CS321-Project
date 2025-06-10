@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
 const newStudent = {
   username: 'max',
   password: 'password',
-  courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
+  courses: JSON.stringify(["CS321", "MATH202", "ENG150"]),
   availability: 'weekeneds',
   friends: JSON.stringify([])
 };
