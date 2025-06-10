@@ -2,15 +2,15 @@ const mysql = require('mysql2');
 
 // Create a Connection to the database
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'Rowsar1360',
+  host: 'localhost',
+  user: 'zawse',
+  password: 'CS321',
   database: 'student_database'
 });
 
-// Example student data
+// Example student datacd
 const newStudent = {
-  username: 'max',
+  username: 'Rowan',
   password: 'password',
   courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
   availability: 'weekeneds',
@@ -42,3 +42,50 @@ connection.execute(
     connection.end();
   }
 );
+
+
+
+function addStudent(username, password, courses, availability, friends) {
+  const sql = `
+    INSERT INTO students (Username, Password, Courses, Availability, Friends)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  // Convert arrays to JSON strings for storage
+  const coursesJson = JSON.stringify(courses);
+  const friendsJson = JSON.stringify(friends);
+
+  connection.execute(
+    sql,
+    [username, password, coursesJson, availability, friendsJson],
+  )
+}
+
+
+/**
+ * Retrieves a student by username.
+ * @param {string} username - The student's username.
+ * @param {function} callback - A function to handle the result or error.
+ */
+function getStudent(username, callback) {
+  const sql = `
+    SELECT * FROM students WHERE Username = ?
+  `;
+
+  connection.execute(sql, [username], (err, results) => {
+    if (err) {
+      console.error('Error retrieving student:', err.message);
+      callback(err, null);
+    } else if (results.length === 0) {
+      console.log('No student found with that username.');
+      callback(null, null);
+    } else {
+      // Convert JSON strings back to arrays
+      const student = results[0];
+      student.Courses = JSON.parse(student.Courses);
+      student.Friends = JSON.parse(student.Friends);
+
+      callback(null, student);
+    }
+  });
+}
