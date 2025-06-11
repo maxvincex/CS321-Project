@@ -1,45 +1,76 @@
 const fs = require('fs');
+const path = require('path');
 const csv = require('csv-parser');
-const mysql = require('mysql2');
+const { createObjectCsvWriter } = require('csv-writer');
 
-// MySQL connection setup
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',         
-  password: 'Mina#4612',     // <- Replace with the actual password
-  database: 'student_database'
-});
+const inputPath = path.join(__dirname, 'DB.csv');
+const outputPath = path.join(__dirname, 'courses.csv');
 
-// Read and insert courses from CSV
-fs.createReadStream('DB.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    console.log('DEBUG ROW:', row); // 🐞 Shows exactly what was read from the file
+// Step 1: Load existing courses to avoid duplicates
+function loadExistingCourses(callback) {
+  const courses = new Set();
+  if (!fs.existsSync(outputPath)) return callback(courses); // file doesn't exist yet
 
-    if (row.Dept && row.Code && row.Title) {
-      // Clean and insert
-      const dept = row.Dept.trim();
-      const code = row.Code.trim();
-      const title = row.Title.trim();
+  fs.createReadStream(outputPath)
+    .pipe(csv())
+    .on('data', (row) => {
+      const key = `${row.dept.trim()}${row.code.trim()}`;
+      courses.add(key);
+    })
+    .on('end', () => callback(courses))
+    .on('error', err => {
+      console.error('❌ Failed to read existing courses:', err);
+      callback(courses);
+    });
+}
 
-      connection.execute(
-        'INSERT IGNORE INTO courses (dept, code, title) VALUES (?, ?, ?)',
-        [dept, code, title],
-        (err, results) => {
-          if (err) {
-            console.error('❌ Error inserting row:', err);
-          } else if (results.affectedRows > 0) {
-            console.log(`✅ Inserted course: ${dept}${code} - ${title}`);
+// Step 2: Import new courses from DB.csv
+function importCourses() {
+  const newCourses = [];
+
+  loadExistingCourses((existingSet) => {
+    fs.createReadStream(inputPath)
+      .pipe(csv())
+      .on('data', (row) => {
+        if (row.Dept && row.Code && row.Title) {
+          const dept = row.Dept.trim();
+          const code = row.Code.trim();
+          const title = row.Title.trim();
+          const key = `${dept}${code}`;
+
+          if (!existingSet.has(key)) {
+            newCourses.push({ dept, code, title });
+            console.log(`✅ New course found: ${dept}${code} - ${title}`);
           } else {
-            console.log(`ℹ️ Course already exists: ${dept}${code}`);
+            console.log(`ℹ️ Skipped existing course: ${dept}${code}`);
           }
+        } else {
+          console.log('❌ Skipped row with missing fields:', row);
         }
-      );
-    } else {
-      console.log('❌ Skipped row due to missing fields:', row);
-    }
-  })
-  .on('end', () => {
-    console.log('\n✅ Done importing courses.\n');
-    connection.end();
+      })
+      .on('end', () => {
+        if (newCourses.length === 0) {
+          console.log('\n✅ No new courses to add.\n');
+          return;
+        }
+
+        const writer = createObjectCsvWriter({
+          path: outputPath,
+          header: [
+            { id: 'dept', title: 'dept' },
+            { id: 'code', title: 'code' },
+            { id: 'title', title: 'title' }
+          ],
+          append: true
+        });
+
+        writer.writeRecords(newCourses)
+          .then(() => {
+            console.log(`\n✅ Added ${newCourses.length} new course(s) to courses.csv\n`);
+          })
+          .catch(err => console.error('❌ Error writing courses:', err));
+      });
   });
+}
+
+importCourses();
