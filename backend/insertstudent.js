@@ -17,7 +17,7 @@ const newStudent = {
   password: 'password',
   courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
   availability: 'weekeneds',
-  friends: JSON.stringify([])
+  friends: []
 };
 
 // Insert query
@@ -31,23 +31,41 @@ connection.execute(
   [
     newStudent.username,
     newStudent.password,
-    newStudent.courses,
+    JSON.stringify(newStudent.courses),
     newStudent.availability,
-    newStudent.friends
+    JSON.stringify(newStudent.friends)
   ],
   (err, results) => {
     if (err) {
       console.error('Error inserting student:', err);
-    } else {
-      console.log('Student inserted with ID:', results.insertId);
+      connection.end();
+      return
     }
+    console.log('Student inserted successfully with ID:', results.insertId);
 
-    connection.end();
+
+
+// validate and insert only existing courses
+    const validateCourseQuery = `SELECT * FROM courses WHERE CONCAT(dept, code) = ?`;
+
+    newStudent.courses.forEach(courseCode => {
+      connection.execute(validateCourseQuery, [courseCode], (err, rows) => {
+        if (err) {
+          console.error(`❌ Error checking course ${courseCode}:`, err);
+        } else if (rows.length === 0) {
+          console.warn(`⚠️ Course not found in DB: ${courseCode}`);
+        } else {
+          console.log(`✅ Course ${courseCode} exists.`);
+        }
+      });
+    });
+
+    // Close connection after short delay to allow all queries to complete
+    setTimeout(() => {
+      connection.end();
+      console.log("🔚 Finished processing student and courses.");
+    }, 1000);
   }
 );
-
-
-
-
 
 
