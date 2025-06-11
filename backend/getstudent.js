@@ -1,44 +1,35 @@
-function addStudent(username, password, courses, availability, friends) {
-    const sql = `
-    INSERT INTO students (Username, Password, Courses, Availability, Friends)
-    VALUES (?, ?, ?, ?, ?)
-  `;
+const { readAllStudents } = require('./studentUtils');
 
-  // Convert arrays to JSON strings for storage
-  const coursesJson = JSON.stringify(courses);
-  const friendsJson = JSON.stringify(friends);
-
-  connection.execute(
-    sql,
-    [username, password, coursesJson, availability, friendsJson],
-  )
-}
-
-
-/*
- * Retrieves a student by username.
- * @param {string} username - The student's username.
- * @param {function} callback - A function to handle the result or error.
+/**
+ * Retrieves a student by email.
+ * @param {string} email - The student's email.
+ * @param {function} callback - Function to handle result or error.
  */
-function getStudent(username, callback) {
-  const sql = `
-    SELECT * FROM students WHERE Username = ?
-  `;
-
-  connection.execute(sql, [username], (err, results) => {
+function getStudent(email, callback) {
+  readAllStudents((err, students) => {
     if (err) {
-      console.error('Error retrieving student:', err.message);
-      callback(err, null);
-    } else if (results.length === 0) {
-      console.log('No student found with that username.');
-      callback(null, null);
-    } else {
-      // Convert JSON strings back to arrays
-      const student = results[0];
-      student.Courses = JSON.parse(student.Courses);
-      student.Friends = JSON.parse(student.Friends);
-
-      callback(null, student);
+      console.error('❌ Failed to read students:', err);
+      return callback(err, null);
     }
+
+    const student = students.find(s => s.Email === email);
+
+    if (!student) {
+      console.log('❌ No student found with that email.');
+      return callback(null, null);
+    }
+
+    callback(null, student);
   });
 }
+
+// Example usage:
+getStudent('rowan@example.com', (err, student) => {
+  if (err) {
+    console.error('❌ Error:', err);
+  } else if (!student) {
+    console.log('⚠️ Student not found.');
+  } else {
+    console.log('✅ Student found:', student);
+  }
+});
