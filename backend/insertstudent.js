@@ -19,21 +19,40 @@ const csvWriter = createObjectCsvWriter({
   append: true
 });
 
-// Sample student
-const student = {
-  id: Date.now(), // crude unique ID
-  Username: 'Rowan',
-  Password: 'password',
-  Courses: JSON.stringify(['CS312', 'MATH202', 'ENG150']),
-  Availability: 'weekends',
-  Friends: JSON.stringify([])
+// Example student datacd
+const newStudent = {
+  username: 'Rowan',
+  password: 'password',
+  courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
+  availability: 'weekeneds',
+  friends: JSON.stringify([])
 };
 
-// Add student to CSV
-csvWriter.writeRecords([student])
-  .then(() => console.log('Student added to CSV'))
-  .catch(err => console.error('Error writing to CSV:', err));
+// Insert query
+const query = `
+  INSERT INTO students (Username, Password, Courses, Availability, Friends)
+  VALUES (?, ?, ?, ?, ?)
+`;
 
+connection.execute(
+  query,
+  [
+    newStudent.username,
+    newStudent.password,
+    newStudent.courses,
+    newStudent.availability,
+    newStudent.friends
+  ],
+  (err, results) => {
+    if (err) {
+      console.error('Error inserting student:', err);
+    } else {
+      console.log('Student inserted with ID:', results.insertId);
+    }
+
+    connection.end();
+  }
+);
 
 
 

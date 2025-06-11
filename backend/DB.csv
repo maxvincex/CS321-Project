@@ -1,0 +1,1109 @@
+Dept,Code,Title
+CS,100,Principles of Computing
+CS,105,Computer Ethics and Society
+CS,108,"Intro to Computer Programming, Part A"
+CS,109,"Intro to Computer Programming, Part B"
+CS,110,Essentials of Computer Science
+CS,112,Introduction to Computer Programming
+CS,211,Object-Oriented Programming
+CS,222,Computer Programming for Engineers
+CS,262,Introduction to Low-Level Programming
+CS,306,Synthesis of Ethics and Law for the Computing Professional
+CS,310,Data Structures
+CS,321,Software Engineering
+CS,325,Introduction to Game Design
+CS,330,Formal Methods and Models
+CS,351,Visual Computing
+CS,367,Computer Systems and Programming
+CS,390,Research and Project Design Principles in Computing
+CS,391,Advanced Programming Lab
+CS,395,Student Initiated Special Topics
+CS,399,Special Topics
+CS,405,Synthesis of Ethics and Law for the Computing Professional
+CS,425,Game Programming I
+CS,426,Game Programming II
+CS,440,Compilers
+CS,450,Database Concepts
+CS,451,Computer Graphics
+CS,452,Virtual Reality
+CS,455,Computer Communications and Networking
+CS,463,Comparative Programming Languages
+CS,465,Computer Systems Architecture
+CS,468,Secure Programming and Systems
+CS,469,Security Engineering
+CS,471,Operating Systems
+CS,475,Concurrent and Distributed Systems
+CS,477,Mobile Application Development
+CS,478,Natural Language Processing
+CS,480,Introduction to Artificial Intelligence
+CS,482,Computer Vision
+CS,483,Analysis of Algorithms
+CS,484,Data Mining
+CS,485,Autonomous Robotics
+CS,487,Introduction to Cryptography
+CS,490,Design Exhibition
+CS,491,Industry-Sponsored Senior Design Project
+CS,498,Independent Study in Computer Science
+CS,499,Special Topics in Computer Science
+CS,500,Special Topics
+CS,504,Principles of Data Management and Mining
+CS,530,Mathematical Foundations of Computer Science
+CS,531,Computer Systems and Fundamentals of Systems Programming
+CS,540,Compilers
+CS,550,Database Systems
+CS,551,Computer Graphics
+CS,555,Computer Communications and Networking
+CS,571,Operating Systems
+CS,580,Introduction to Artificial Intelligence
+CS,583,Analysis of Algorithms
+CS,584,Theory and Applications of Data Mining
+CS,587,Introduction to Cryptography
+CS,588,Machine Learning
+CS,590,Special Topics
+CS,595,Basic Topics in Computer Science
+CS,600,Theory of Computation
+CS,630,Advanced Algorithms
+CS,688,Machine Learning
+CS,690,Special Topics in AI and Databases
+CS,695,Special Topics in Computer Science
+CS,700,Research Methodology in Computer Science
+CS,747,Deep Learning
+CS,787,Decision Guidance Systems
+CS,795,Advanced Topics in CS
+CS,798,Research Project
+CS,799,MS Thesis
+CS,998,Doctoral Dissertation Proposal
+CS,999,Doctoral Dissertation
+BENG,100,Bioengineering and Society
+BENG,101,Introduction to Bioengineering
+BENG,214,Physiology for Engineers
+BENG,230,Continuum Biomechanics and Transport I
+BENG,240,Biomaterials
+BENG,241,Biomechanics and Biomaterials Laboratory
+BENG,314,Pathophysiology and the Role of New Technologies in Human Diseases
+BENG,320,Bioengineering Signals and Systems
+BENG,322,Health Data Challenges
+BENG,327,"Cellular, Neurophysiological, and Pharmacological Neuroscience"
+BENG,330,Computational Methods in Bioengineering
+BENG,331,Computational Methods in Bioengineering Laboratory
+BENG,350,Neural System Designs
+BENG,360,Biomedical Imaging
+BENG,370,Bioinstrumentation and Devices I
+BENG,371,Bioinstrumentation and Devices Laboratory
+BENG,375,"Intellectual Property, Regulatory Concepts and Product Development"
+BENG,391,Bioengineering Professional Development
+BENG,394,Bioengineering Internship Experience
+BENG,395,RS: Mentored Research in Bioengineering
+BENG,413,Molecular Engineering Laboratory
+BENG,415,Biomanufacturing
+BENG,417,Bioengineering World Health
+BENG,420,Biomedical Data Analytics
+BENG,421,Cell and Tissue Engineering
+BENG,426,Neural Engineering
+BENG,430,Continuum Biomechanics and Biotransport II
+BENG,434,Computational Modelling of Neurons and Networks
+BENG,435,Multi-scale Modeling and Simulation in Biomedicine
+BENG,437,Medical Image Processing
+BENG,438,Advanced Biomedical Imaging
+BENG,440,Advanced Biomaterials and Biomimetic Devices for Nanomedicine
+BENG,470,Bioinstrumentation and Devices II
+BENG,487,Neuroinformatics
+BENG,492,Senior Advanced Design Project I
+BENG,493,RS: Senior Advanced Design Project II
+BENG,499,Special Topics in Bioengineering
+BENG,500,Special Topics
+BENG,501,Bioengineering Research Methods
+BENG,514,Pathophysiology and the Role of New Technologies in Human Diseases
+BENG,520,Biomedical Data Analytics
+BENG,521,Cell and Tissue Engineering
+BENG,526,Neural Engineering
+BENG,530,Continuum Biomechanics and Biotransport II
+BENG,535,Multi-Scale Modeling and Simulation in Biomedicine
+BENG,537,Medical Image Processing
+BENG,538,Medical Imaging
+BENG,540,Advanced Biomaterials and Biomimetic Devices for Nanomedicine
+BENG,541,Biomaterials
+BENG,550,Advanced Biomechanics
+BENG,551,Translational Bioengineering
+BENG,570,Bioinstrumentation and Devices II
+BENG,575,"Intellectual Property, Regulatory Concepts and Product Development"
+BENG,590,Selected Topics in Bioengineering
+BENG,600,Bioengineering Seminar
+BENG,601,Collaborative Bioengineering Basic Science Research
+BENG,602,Collaborative Bioengineering Clinical Science Research
+BENG,615,Biomanufacturing
+BENG,641,Advanced Nanotechnology in Health
+BENG,699,Advanced Topics in Bioengineering
+BENG,703,Laboratory Rotations in Biomaterials and Nanomedicine
+BENG,704,Laboratory Rotations in Biomedical Imaging and Devices
+BENG,705,Laboratory Rotations in Computational Biomedical Engineering
+BENG,706,Laboratory Rotations in Neurotechnology and Computational Neuroscience
+BENG,725,Computational Motor Control
+BENG,738,Advanced Medical Image Processing
+BENG,797,Graduate Practicum
+BENG,798,Independent Reading and Research in Bioengineering
+BENG,799,Master's Thesis
+BENG,800,Bioengineering Colloquium
+BENG,801,Bioengineering Colloquium II
+BENG,998,Doctoral Dissertation Proposal
+BENG,999,Doctoral Dissertation
+CEIE,100,Environmental Issues and Solutions Around the World
+CEIE,101,Introduction to Civil Engineering
+CEIE,203,Geomatics and Engineering Graphics
+CEIE,210,Statics
+CEIE,240,Hydraulics
+CEIE,241,Hydraulics
+CEIE,242,Hydraulics Laboratory
+CEIE,301,Engineering and Economic Models in Civil Engineering
+CEIE,310,Mechanics of Materials
+CEIE,311,Structural Analysis
+CEIE,331,Soil Mechanics
+CEIE,332,Soil Mechanics
+CEIE,333,Soil Mechanics Lab
+CEIE,340,Water Resource Engineering
+CEIE,355,Environmental Engineering and Science
+CEIE,360,Introduction to Transportation Engineering
+CEIE,370,Construction Systems
+CEIE,395,Mentored Research in Civil and Environmental Engineering
+CEIE,401,Sustainable Land Development
+CEIE,402,Highway Design and Construction
+CEIE,403,Experimental Methods in Civil Engineering
+CEIE,409,Professional Practice and Management in Engineering
+CEIE,412,Structural Steel Design
+CEIE,413,Reinforced Concrete Design
+CEIE,414,Structural Modeling for Engineers
+CEIE,432,Foundation Design
+CEIE,435,Engineering Geology
+CEIE,440,Water Supply and Distribution
+CEIE,441,Engineering for Climate Adaptation
+CEIE,442,Open Channel Flow
+CEIE,444,Water Resources Planning and Design
+CEIE,445,Flood Hazards Engineering and Adaptation
+CEIE,450,Environmental Engineering Systems
+CEIE,451,Air Pollution Formation and Control
+CEIE,452,Climate Change Engineering and Policy
+CEIE,453,Water and Wastewater Treatment Processes
+CEIE,454,Water and Sanitation in Low-income Communities
+CEIE,457,Remote Sensing in Civil Engineering
+CEIE,461,Traffic Engineering
+CEIE,462,Urban Transportation Planning
+CEIE,471,Construction Administration
+CEIE,472,Building Information Modeling
+CEIE,473,Legal Aspects of the Construction Process
+CEIE,474,Construction Computer Application and Informatics
+CEIE,476,Construction Cost Estimating
+CEIE,477,Construction Safety and Risk Management
+CEIE,478,Construction Planning and Scheduling
+CEIE,490,Civil Engineering Senior Design Project I
+CEIE,491,Civil Engineering Senior Design Project II
+CEIE,498,Independent Study in Civil Engineering
+CEIE,499,Special Topics in Civil Engineering
+ECE,101,Introduction to Electrical and Computer Engineering
+ECE,201,Introduction to Signals and Systems
+ECE,231,Digital System Design
+ECE,232,Digital System Design Lab
+ECE,240,C Programming for Engineers
+ECE,285,Electric Circuit Analysis I
+ECE,286,Electric Circuit Analysis II
+ECE,301,Digital Electronics
+ECE,305,Electromagnetic Theory
+ECE,311,"Energy Infrastructure, Market, and Management"
+ECE,321,Continuous-Time Signals and Systems
+ECE,330,Circuit Theory
+ECE,333,Linear Electronics I
+ECE,334,Linear Electronics Lab I
+ECE,340,Data Structures and Systems Programming in C
+ECE,350,Embedded Systems and Hardware Interfaces
+ECE,370,Introduction to Robotics
+ECE,390,Engineering Design and Fabrication
+ECE,391,Professional Development for Engineers
+ECE,395,Electrical and Computer Engineering Internship
+ECE,408,Small Modular Reactor Simulation Lab
+ECE,409,Data Center Engineering
+ECE,410,Applications of Discrete-Time Signal Processing
+ECE,411,"Electricity Sector Engineering, Economics, and Regulation"
+ECE,412,Renewable Energy Lab
+ECE,414,Grid Digitization and Automation
+ECE,415,Power System Analysis
+ECE,416,Electric Machinery and Modern Applications
+ECE,417,Smart Grid and Cyber Security
+ECE,418,Power System Protection and Control
+ECE,419,Power Electronics for Modern Power Systems
+ECE,420,Smart Grid Lab
+ECE,421,Classical Systems and Control Theory
+ECE,424,Modern Control Systems Design
+ECE,425,Secure RF Communications
+ECE,427,Introduction to Machine Learning and Artificial Intelligence in Engineering
+ECE,429,Modern Control Systems Lab
+ECE,430,Principles of Semiconductor Devices
+ECE,431,Digital Circuit Design
+ECE,433,Linear Electronics II
+ECE,434,Linear Electronics II Laboratory
+ECE,436,Printed Circuit Board Design Lab
+ECE,445,Computer Organization
+ECE,446,Device Driver Development
+ECE,447,Microcontrollers
+ECE,448,FPGA Design with VHDL
+ECE,450,Mobile Robots
+ECE,455,GPU Architecture and Programming
+ECE,460,Communication and Information Theory
+ECE,461,Communication Engineering Laboratory
+ECE,462,Data and Computer Communications
+ECE,463,Digital Communications Systems
+ECE,465,Computer Networking Protocols
+ECE,467,Computer Networking Laboratory
+ECE,470,Introduction to Humanoid Robotics
+ECE,476,Cryptography Fundamentals
+ECE,480,Small Spacecraft Engineering
+ECE,488,Nanoelectronics Fundamentals
+ECE,491,Engineering Seminar
+ECE,492,Senior Advanced Design Project I
+ECE,493,Senior Advanced Design Project II
+ECE,498,Independent Study in Electrical and Computer Engineering
+ECE,499,Special Topics in Electrical and Computer Engineering
+IT,102,Discrete Structures
+IT,104,Introduction to Computing
+IT,105,IT Architecture Fundamentals
+IT,106,Introduction to IT Problem Solving Using Computer Programming
+IT,109,Introduction to Computer Programming
+IT,191,Review of Computing Fundamentals
+IT,193,Review of Multimedia and Web Design
+IT,194,Review of Database Fundamentals
+IT,196,Review of IT Problem Solving Using Computer Programming
+IT,206,Object Oriented Techniques for IT Problem Solving
+IT,207,Applied IT Programming
+IT,209,Introduction to Object Oriented Programming
+IT,213,Multimedia and Web Design
+IT,214,Database Fundamentals
+IT,216,Systems Analysis and Design
+IT,223,Information Security Fundamentals
+IT,293,Applied IT: Junior Transition
+IT,300,Modern Telecommunications
+IT,304,IT in the Global Economy
+IT,306,Data Structures and Algorithms in Java
+IT,309,Data Structures and Algorithms in Python
+IT,314,Database Programming
+IT,315,Mobile Development
+IT,322,Health Data Challenges
+IT,331,Front-End Web Development
+IT,332,Web Server Administration
+IT,335,Web Development using Content Management Systems
+IT,341,Data Communications and Network Principles
+IT,342,Operating Systems Fundamentals
+IT,343,IT Project Management
+IT,352,Security Administration of Linux Systems
+IT,353,Information Defense Technologies
+IT,357,"Computer Crime, Forensics, and Auditing"
+IT,366,Network Security
+IT,369,Cyber Security of Data and Software
+IT,371,Applied AI for IT
+IT,372,Applied Generative AI
+IT,373,Data Visualization and Analytics
+IT,374,Big Data Analytics with AI
+IT,390,Rapid Development of Scalable Cloud Applications
+IT,414,Database Administration
+IT,415,Information Visualization
+IT,416,Machine Learning for Information Sciences
+IT,425,Election Security
+IT,426,Information Security Risk Management
+IT,429,Security Accreditation of Information Systems
+IT,431,Advanced Web Development
+IT,432,Introduction to Network Forensics and Analysis
+IT,442,Cloud Infrastructure
+IT,445,Advanced Networking Principles
+IT,451,Cloud Services Management
+IT,461,Application Development in Cloud
+IT,462,Applied Cyber Threat Analysis
+IT,467,Network Defense
+IT,471,Big Data on Cloud Systems
+IT,479,Digital Media and Web Design Capstone
+IT,481,Cloud Security
+IT,482,AWS Cloud Operations
+IT,485,Cloud Operations
+IT,492,Senior Design Project I
+IT,493,Senior Design Project II
+IT,498,Independent Study in Information Technology
+IT,499,Special Topics in Information Technology
+ME,151,Practicum in Engineering
+ME,211,Statics
+ME,212,Solid Mechanics
+ME,221,Thermodynamics
+ME,231,Dynamics
+ME,311,Mechanical Experimentation I
+ME,313,Material Science
+ME,321,Mechanical Experimentation II
+ME,322,Fluid Mechanics
+ME,323,Heat Transfer
+ME,331,Mechatronics
+ME,341,Design of Mechanical Elements
+ME,342,Design of Thermal Systems
+ME,351,Analytical Methods in Engineering
+ME,352,Entrepreneurship in Engineering
+ME,395,Mechanical Engineering Internship
+ME,409,Data Center Engineering
+ME,410,Biosafety Laboratories
+ME,413,A Seat at the Table
+ME,414,Fatigue Analysis
+ME,415,Composite Materials
+ME,421,HVAC Design
+ME,422,Computational Fluid Dynamics (CFD)
+ME,423,Microfluidics
+ME,425,Renewable Energy Engineering
+ME,432,System Dynamics and Controls
+ME,443,Mechanical Design I
+ME,444,Mechanical Design II
+ME,445,Finite Element Analysis
+ME,446,Energetics
+ME,447,Computer-Aided Design
+ME,453,Developing the Societal Engineer
+ME,454,Project Mgmt for Engineers
+ME,466,Advanced Materials Engineering
+ME,467,Nanosensors
+ME,471,Introduction to Astronautics
+ME,472,Spacecraft Subsystems
+ME,473,Space Systems Propulsion
+ME,475,Aeronautics I
+ME,476,Aeronautics II
+ME,477,Aircraft Propulsion
+ME,480,Machine Learning for Mechanical Engineers
+ME,498,Independent Study in Mechanical Engineering
+ME,499,Special Topics in Mechanical Engineering
+CYSE,101,Introduction to Cyber Security Engineering
+CYSE,130,Introduction to Computing for Digital Systems Engineering
+CYSE,211,Operating Systems and Lab
+CYSE,230,Computer Networking
+CYSE,304,Cyber Security in Logic Design and Digital Systems
+CYSE,341,Machine Learning Applied to Cyber Security Engineering
+CYSE,395,Cyber Security Engineering Internship
+CYSE,411,Secure Software Engineering
+CYSE,421,Industrial Control Systems Security
+CYSE,424,Embedded and Real Time Systems
+CYSE,425,Secure RF Communications
+CYSE,430,Critical Infrastructure Protection
+CYSE,442,Generative AI Technologies in Cyber Security Engineering
+CYSE,445,System Security and Resilience
+CYSE,450,Cyber Vulnerability Lab
+CYSE,460,Power Systems and Smart Grid Security
+CYSE,461,Power Grid Security
+CYSE,462,Mobile Devices and Network Security
+CYSE,465,Transportation Systems Design
+CYSE,466,Introduction to Unmanned Aerial Systems Security
+CYSE,467,GPS Security
+CYSE,470,Human Factors and Cyber Security Engineering
+CYSE,476,Cryptography Fundamentals
+CYSE,477,Intrusion Detection
+CYSE,478,Cyber Security Audit and Compliance
+CYSE,479,Methods of User Authentication
+CYSE,480,Reverse Software Engineering
+CYSE,491,Engineering Senior Seminar
+CYSE,492,Senior Advanced Design Project I
+CYSE,493,Senior Advanced Design Project II
+CYSE,498,Independent Study in Cyber Security Engineering
+CYSE,499,Special Topics in Cyber Security Engineering
+ENGH,100,Composition for Multilingual Writers 
+ENGH,101,Composition
+ENGH,123,Language-Enhanced Composition for Multilingual Writers
+COMM,100,Public Speaking 
+COMM,101,Fundamentals of Communication 
+DANC,454,Methods of Teaching Dance 
+INTS,101,Narratives of Identity 
+INTS,202,Public Speaking and Critical Thinking Skills 
+BUS,210,Business Analytics I
+CDS,292,Introduction to Social Network Analysis 
+EDRS,220,Introduction to Applied Quantitative Analysis 
+HNRT,125,Applied Quantitative Reasoning 
+MATH,106,Quantitative Reasoning 
+MATH,108,Introductory Calculus with Business Applications 
+MATH,110,Introductory Probability 
+MATH,111,Linear Mathematical Modeling 
+MATH,113,Analytic Geometry and Calculus I
+MATH,115,Analytic Geometry and Calculus I (Honors) \
+MATH,124,"Calculus with Algebra/Trigonometry, Part B "
+MATH,125,Discrete Mathematics I 
+MATH,272,Mathematics for the Elementary School Teachers II 
+SOCI,213,Statistics for the Behavioral Sciences
+STAT,250,Introductory Statistics I
+ANTH,395,"Work, Technology, and Society: An IT Perspective "
+AVT,110,Digital Design Studio 
+AVT,180,New Media in the Creative Arts 
+CDS,130,Computing for Scientists 
+COMM,320,Digital Innovations in Professional Communication 
+CS,100,Principles of Computing 
+CS,108,"Intro to Computer Programming, Part A "
+CS,112,Introduction to Computer Programming
+CYSE,130,Introduction to Computing for Digital Systems Engineering 
+ELED,257,Integrating Technology in PreK-6 
+ENGH,210,Equitable AI 
+GOVT,300,Research Methods and Analysis 
+HIST,390,The Digital Past
+INTS,203,Inquiry for Action: Facilitating Change 
+INTS,249,Digital Literacy 
+IT,104,Introduction to Computing 
+MIS,303,Introduction to Business Information Systems 
+MUSI,259,Music in Computer Technology 
+PHYS,251,Introduction to Computer Methods in Physics 
+SOCI,410,Social Surveys and Attitude and Opinion Measurements 
+SYST,130,Introduction to Computing for Digital Systems Engineering 
+UNIV,182,AI for All: Understanding and Building Artificial Intelligence 
+PSYC,300,Statistics in Psychology
+PSYC,301,Research Methods in Psychology 
+PSYC,372,Biopsychology
+ARTH,101,Introduction to the Visual Arts
+ARTH,102,Symbols and Stories in Art
+ARTH,103,Introduction to Architecture
+ARTH,104,Design in the 20th Century
+ARTH,200,History of Western Art I
+ARTH,201,History of Western Art II
+ARTH,203,Survey of Asian Art
+ARTH,204,Survey of Latin American Art
+ARTH,206,Survey of African Art
+ARTH,303,National Traditions
+ARTH,311,Design of Cities
+ARTH,315,Modern Architecture JS
+ARTH,317,The Black Pharaohs: Art and Archaeology of Ancient Nubia
+ARTH,321,Greek Art and Archaeology
+ARTH,322,Roman Art and Archaeology
+ARTH,324,From Alexander the Great to Cleopatra: The Hellenistic World
+ARTH,333,Early Christian and Byzantine Art
+ARTH,334,Western Medieval Art
+ARTH,335,Arts of Medieval England
+ARTH,340,"Early Renaissance Art in Italy, 1300-1500"
+ARTH,341,Northern Renaissance Art
+ARTH,342,"High Renaissance Art in Italy, 1480-1570"
+ARTH,343,The Art of Venice
+ARTH,344,"Baroque Art in Italy, France, and Spain, 1600-1750"
+ARTH,345,"Northern Baroque Art, 1600-1750"
+ARTH,350,History of Photography
+ARTH,360,Nineteenth-Century European Art
+ARTH,362,Twentieth-Century European Art
+ARTH,370,Arts of the United States JS
+ARTH,371,American Architecture and Material Culture
+ARTH,372,Studies in 18th- and 19th-Century Art of the United States
+ARTH,373,Studies in 20th-Century Art of the United States
+ARTH,375,Indigenous Arts of the US and Canada
+ARTH,376,Twentieth-Century Latin American Art
+ARTH,382,Arts of India
+ARTH,383,Arts of Southeast Asia
+ARTH,384,Arts of China
+AVT,103,Introduction to the Artist's Studio
+AVT,104,Two-Dimensional Design and Color
+AVT,105,Three-Dimensional Design and Beyond
+AVT,215,Typography
+AVT,222,Drawing I
+AVT,232,Painting I
+AVT,243,Printmaking I
+AVT,252,Darkroom Photography I
+AVT,253,Digital Photography I
+AVT,262,Sculpture I
+AVT,385,EcoArt
+DANC,101,Dance Appreciation
+DANC,119,Dance in Popular Culture
+DANC,125,Modern/Contemporary Dance I
+DANC,131,Beginning Jazz Technique
+DANC,145,Ballet I
+DANC,161,Beginning Tap Dance
+DANC,225,Modern/Contemporary Dance II
+DANC,231,Intermediate Jazz Technique
+DANC,245,Ballet II
+DANC,301,What is Dance?
+DANC,331,Advanced Jazz Dance
+DANC,390,Dance History I
+DANC,425,Advanced Modern/Contemporary Dance I
+DSGN,102,Design in the Modern World
+ENGH,270,Introduction to Screen Cultures
+ENGH,315,Folklore and Folklife
+ENGH,370,Documentary and Non-Fiction Film/Media
+ENGH,371,Global TV
+ENGH,372,Introduction to Film
+ENGH,374,Screening the Global City
+ENGH,396,Introduction to Creative Writing
+FAVS,204,Film Art
+FAVS,225,Introduction to World Cinema
+FAVS,280,Screenwriting: Introduction
+GAME,101,Introduction to Game Design
+HIST,316,History of Modern Architecture
+INTS,103,Human Creativity: Science and Art
+INTS,245,Visual Culture and Society
+INTS,346,Art as Social Action
+MUSI,100,Fundamentals of Music
+MUSI,101,Introduction to Classical Music
+MUSI,102,Popular Music in America
+MUSI,106,"Fundamentals of Rock, Blues, and Jazz"
+MUSI,107,Jazz and Blues in America
+MUSI,280,Athletic and Ceremonial Ensemble
+MUSI,301,Music in Motion Pictures
+MUSI,302,American Musical Theater
+MUSI,380,Wind Symphony
+MUSI,381,University Chorale
+MUSI,382,Piano Ensemble
+MUSI,383,Symphonic Band
+MUSI,385,Chamber Singers
+MUSI,387,Symphony Orchestra
+MUSI,389,Jazz Ensemble
+MUSI,485,Chamber Ensembles
+PHIL,156,What Is Art?
+RELI,237,Religion and Art
+THR,101,Theater Appreciation
+THR,150,Global Theater Histories I
+THR,151,Global Theater Histories II
+THR,210,Acting I
+THR,230,Fundamentals of Production
+THR,411,Great Film Directors
+THR,412,Great Film Performances
+ANTH,309,Peoples and Cultures of India
+ANTH,313,"Myth, Magic, and Mind"
+ANTH,317,East Asian Cultures
+ANTH,320,Global Africa
+ANTH,331,Refugees
+ANTH,382,Urban Anthropology
+ARTH,320,Art of the Islamic World
+BUS,200,Global Environment of Business
+CEIE,100,Environmental Issues and Solutions Around the World
+COMM,305,Foundations of Intercultural Communication
+CONF,340,Global Conflict Analysis and Resolution
+CRIM,405,Law and Justice around the World
+CULT,320,Globalization and Culture
+ENGH,270,Introduction to Screen Cultures
+ENGH,374,Screening the Global City
+EVPP,336,Tackling Wicked Problems in Society the Environment
+FAVS,300,Global Horror Film
+FOLK,100,Global Folklore
+GCH,205,Global Health
+GEOC,109,Global Gateway Global Contexts
+GEOC,150,International Experience: Global Contexts
+GERM,315,German for the Global World
+GGS,101,Major World Regions
+GGS,317,Geography of China
+GLOA,101,Introduction to Global Affairs
+GOVT,132,Introduction to International Politics
+GOVT,133,Introduction to Comparative Politics
+GOVT,134,Grand Challenges to Human Security
+HIST,261,Survey of African History
+HIST,262,Survey of African History
+HIST,271,Survey of Latin American History
+HIST,272,Survey of Latin American History
+HIST,308,Nineteenth-Century Europe
+HIST,317,Nazi Germany
+HIST,318,Holocaust: History and Meaning
+HIST,329,Modern Russia and the Soviet Union
+HIST,346,Sport History and Film
+HIST,356,Modern Japan
+HIST,357,Postwar Japan
+HIST,364,Revolution in Latin America
+HIST,377,The Vietnam War
+HIST,378,History of Aviation
+HIST,384,Global History of Christianity
+INTS,390,International Internship
+INTS,406,Global Leadership
+INYO,105,U.S. American Cultures
+INYO,261,Mentoring Multilingual Learners
+MUSI,103,Musics of the World
+NEUR,355,Cross-Cultural Studies in Scientific Inquiry
+PSYC,379,Applied Cross-Cultural Psychology
+RELI,100,The Human Religious Experience
+RELI,211,Introduction to Religions of the 'West'
+RELI,212,Introduction to Religions of Asia
+RELI,310,Judaism
+RELI,312,Islam
+RELI,313,Hinduism
+RELI,322,Religions of Africa
+RELI,368,"Islam, Democracy, and Human Rights"
+RELI,383,Holocaust: History and Meaning
+RELI,384,Global History of Christianity
+SOCI,120,Globalization and Society
+SOCI,320,Globalization and Social Change
+SOCI,332,The Urban World
+SPAN,212,Intermediate Spanish II: Local and Global Contexts
+SPMT,346,Sport History and Film
+SYST,202,Engineering Systems in a Complex World
+THR,359,World Stages
+TOUR,210,Global Understanding through Travel and Tourism
+WMST,100,Global Representations of Women
+HIST,125,Introduction to Global History
+HIST,394,Globalization and History
+ARAB,325,Major Arab Writers/Stories
+ARAB,365,Black and Minority Cultures in Arabic Literature
+CHIN,310,Survey of Chinese Literature
+CHIN,311,Modern Chinese Literature in Translation
+CHIN,325,Major Chinese Writers
+CHIN,328,Asian American Women Writers
+CLAS,250,Classical Mythology
+CLAS,260,The Legacy of Greece and Rome
+CLAS,340,Greek and Roman Epic
+CLAS,350,Greek and Roman Tragedy
+CLAS,360,Greek and Roman Comedy
+CLAS,380,Greek and Roman Novels
+ELED,258,"Children's Literature: Exploring Stories, Art, and Power of Picturebooks"
+ENGH,201,Reading and Writing about Texts
+ENGH,202,Texts and Contexts
+ENGH,203,Western Literary Tradition
+ENGH,204,Western Literary Traditions
+ENGH,206,Literature in the Creation of Just Societies
+FREN,325,Major French Writers (Topic Varies)
+FREN,329,Problems of Western Civilization in French Literature
+FRLN,330,Topics in World Literature
+GERM,325,Major Writers
+HIST,334,American Scriptures
+HIST,381,Remembering Histories of Violence: Narrative Engagements with Difficult Pasts
+HIST,403,"Revolutionary Era in American History, 1763-1812"
+INTS,101,Narratives of Identity
+INTS,363,Social Justice Narratives
+ITAL,320,Topics in Italian Film and Literature
+ITAL,325,Major Italian Writers
+JAPA,340,Topics in Japanese Literature
+KORE,311,Modern Korean Literature in Translation
+PHIL,253,Philosophy and Literature
+RELI,235,Religion and Literature
+RELI,333,Spiritual Autobiography
+RELI,334,American Scriptures
+RELI,338,Qur'an and Hadith
+RELI,339,The Bible as Literature
+RUSS,325,Major Russian Writers
+RUSS,326,19th-Century Literature in Translation
+RUSS,327,20th-Century Literature in Translation
+SEED,370,Young Adult Literature in Multicultural Settings
+SPAN,325,Major Hispanic Writers
+ASTR,115,Finding New Worlds
+BIOL,102,Introductory Biology I
+CHEM,103,Chemical Science in a Modern Society
+CHEM,104,Chemistry for Changing Times
+CHEM,155,Intro to Environmental Chemistry I
+CHEM,156,Intro to Environmental Chemistry II
+CLIM,102,Intro to Global Climate Change Science
+GGS,121,Dynamic Atmosphere and Hydrosphere
+INTS,311,Mysteries of Migration: Consequences for Conservation
+INTS,401,Conservation Biology
+INTS,403,Conservation Behavior
+PHYS,103,Physics and Everyday Phenomena I
+PHYS,104,Physics and Everyday Phenomena II
+ASTR,302,Foundations of Cosmological Thought
+ASTR,303,Black Holes
+BIOL,140,Plants and People
+CHEM,101,Intro to Modern Chemistry
+CHEM,102,Chemistry for Changing Times
+COS,301,Great Ideas in Science
+EVPP,201,Environment and You
+FRSC,101,Principles of Forensic Science
+GEOC,151,International Experience: Natural Science Non-lab
+GGS,102,Physical Geography
+INTS,103,Human Creativity: Science and Art
+INTS,210,Sustainable World
+INTS,211,Intro to Conservation Studies
+INTS,301,Science in the News
+INTS,410,Contemporary Health: Science and Society
+NEUR,101,Intro to Neuroscience
+NUTR,295,Intro to Nutrition
+PHIL,271,How Science Works
+PHYS,106,The Quantum World
+AFAM,200,Introduction to African American Studies
+ANTH,114,Introduction to Cultural Anthropology
+ANTH,120,"Unearthing the Past: Prehistory, Culture and Evolution"
+ANTH,121,People of the Earth: Humanity's First Five Million Years
+ANTH,135,Introduction to Biological Anthropology
+ANTH,363,"Humans, Disease, and Death"
+ANTH,365,Scientific Racism and Human Variation
+ANTH,396,Issues in Anthropology: Social Sciences
+BUS,100,Business and Society
+CONF,101,Conflict and Our World
+CONS,410,Human Dimensions in Conservation
+CRIM,100,Introduction to Criminal Justice
+ECON,100,Economics for the Citizen
+ECON,103,Contemporary Microeconomic Principles
+ECON,104,Contemporary Macroeconomic Principles
+ECON,105,Environmental Economics for the Citizen
+ECON,367,"Money, Markets, and Economic Policy"
+EDEP,110,Academic Success Through Self-Regulated Learning
+EDEP,350,Perspectives on Achievement Motivation
+EDSE,203,Disability in American Culture
+EDSE,230,Introduction to Autism Spectrum Disorders
+EDUC,200,"Introduction to Education: Teaching, Learning and Schools"
+GCH,325,Stress and Well-Being
+GGS,103,Human Geography
+GGS,301,Political Geography
+GGS,304,Population Geography
+GOVT,101,Democratic Theory and Practice
+GOVT,103,Introduction to American Government
+GOVT,150,Introduction to Technology Policy
+GOVT,367,"Money, Markets and Economic Policy"
+HDFS,200,Individual and Family Development
+HEAL,230,Introduction to Health Behavior
+HIST,121,Formation of the American Republic
+HIST,122,Development of Modern America
+HIST,314,History of Germany
+HIST,321,Modern France
+INTS,203,Inquiry for Action: Facilitating Change
+INTS,300,Law and Justice
+INTS,304,Social Movements and Community Activism
+INTS,316,Introduction to Childhood Studies
+INTS,317,Issues in Family Relationships
+INTS,319,Contemporary Youth Studies
+INTS,321,Parent-Child Relations
+INTS,331,The Nonprofit Sector
+INTS,334,Environmental Justice
+INTS,336,"Poverty, Wealth and Inequality in the US"
+INTS,347,Gender Representation in Popular Culture
+INTS,362,Social Justice and Human Rights
+INTS,371,Food Systems and Policy
+INTS,434,Research for Social Change
+INTS,436,Social Justice Education
+INTS,437,Critical Race Studies
+INTS,438,Representations of Race
+LING,100,Human Language
+LING,306,Introduction to Linguistic Analysis
+PSYC,100,Introduction to Psychology
+PSYC,211,Lifespan Development
+PSYC,231,Social Psychology
+PSYC,333,Psychology in the Workplace
+RMGT,210,Recreation and Leisure in Life
+SOCI,101,Introductory Sociology
+SOCI,308,Race and Ethnicity in a Changing World
+SOCI,315,Contemporary Gender Relations
+SOCI,352,Social Problems and Solutions
+SOCI,355,Social Inequality
+SOCI,360,Youth Culture and Society
+SOCI,371,The Individual and Society
+SOCW,200,Introduction to Social Work
+SPAN,430,Spanish in the United States
+TOUR,311,Women and Tourism
+UNIV,381,Foundations for Building a Just Society
+WMST,200,Introduction to Women and Gender Studies
+WMST,208,Introduction to LGBTQ Studies
+ANTH,135,Introduction to Biological Anthropology
+ANTH,309,Peoples and Cultures of India
+ANTH,365,Scientific Racism and Human Variation
+ARTH,315,Modern Architecture
+ARTH,370,Arts of the United States
+CEIE,100,Environmental Issues and Solutions Around the World
+COMM,305,Foundations of Intercultural Communication
+CRIM,405,Law and Justice around the World
+CULT,320,Globalization and Culture
+ENGH,206,Literature in the Creation of Just Societies
+ENGH,315,Folklore and Folklife
+EVPP,336,Tackling Wicked Problems in Society the Environment
+GCH,205,Global Health
+GGS,102,Physical Geography
+GGS,301,Political Geography
+GLOA,101,Introduction to Global Affairs
+GOVT,103,Introduction to American Government
+GOVT,134,Grand Challenges to Human Security
+GOVT,150,Introduction to Technology Policy
+HIST,272,Survey of Latin American History
+HIST,308,Nineteenth-Century Europe
+HIST,316,History of Modern Architecture
+HIST,318,Holocaust: History and Meaning
+HIST,329,Modern Russia and the Soviet Union
+HIST,378,History of Aviation
+HIST,384,Global History of Christianity
+INTS,319,Contemporary Youth Studies
+INTS,406,Global Leadership
+INYO,261,Mentoring Multilingual Learners
+RELI,211,Introduction to Religions of the 'West'
+RELI,212,Introduction to Religions of Asia
+RELI,310,Judaism
+RELI,313,Hinduism
+RELI,368,"Islam, Democracy, and Human Rights"
+RELI,383,Holocaust: History and Meaning
+RELI,384,Global History of Christianity
+RMGT,210,Recreation and Leisure in Life
+SOCI,101,Introductory Sociology
+SOCI,320,Globalization and Social Change
+SOCW,200,Introduction to Social Work
+SYST,202,Engineering Systems in a Complex World
+WMST,208,Introduction to LGBTQ Studies
+ENGH ,302,Advanced Composition
+ACCT,461,Assurance and Audit Services
+ACCT,493,Financial Planning and Wealth Management Capstone
+ANTH,490,History of Anthropological Theory
+ARAB,331,Reading and Conversation II
+ARTH,400,Historiography and Methods of Research in Art History (Topic Varies)
+ARTH,420,Advanced Studies in Ancient Art
+ARTH,430,Advanced Studies in Medieval or Islamic Art
+ARTH,440,Advanced Studies in Renaissance and Baroque Art
+ARTH,460,Advanced Studies in 20th-Century European Art
+ARTH,471,Advanced Studies in Art of the United States
+ARTH,472,Advanced Studies in 20th-Century Latin American Art
+ARTH,474,Advanced Studies in Contemporary Art
+ARTH,482,Advanced Studies in Asian Art
+ARTH,495,Curating an Exhibit
+ARTH,499,Advanced Studies in Art History
+ASTR,402,Methods of Observational Astronomy
+AVT,395,Writing for Artists
+AVT,396,Writing for Designers
+BENG,360,Biomedical Imaging
+BIOL,308,Foundations of Ecology and Evolution
+BIOL,338,Lab for Fundamentals of Ecology and Evolution
+BIOL,400,News Views: Selected Topics
+BIS,390,The Research Process
+CDS,302,Scientific Data and Databases
+CEIE,301,Engineering and Economic Models in Civil Engineering
+CHEM,336,Physical Chemistry Lab I
+CHEM,465,Biochemistry Lab
+CHIN,480,Fourth-Year Chinese I
+CLIM,408,Senior Research
+COMM,300,Writing and Rhetorical Criticism
+CONF,302,"Culture, Identity, and Conflict"
+CRIM,495,"Capstone in Criminology, Law and Society"
+CS,306,Synthesis of Ethics and Law for the Computing Professional
+CS,321,Software Engineering
+CS,405,Synthesis of Ethics and Law for the Computing Professional
+CYSE,491,Engineering Senior Seminar
+DANC,390,Dance History I
+DANC,391,Dance History II
+ECE,333,Linear Electronics I
+ECED,411,Assessment of Diverse Young Learners
+ECON,365,Topics in Economic History
+ECON,395,Effective Writing in Economics
+ECON,485,Smithian Political Economy I
+EDSE,452,Intersectionality and Disability
+ELED,305,Foundations of Elementary Methods and Management
+ELED,459,Researching Problems of Practice in Elementary Education
+ENGH,305,Dimensions of Writing and Literature
+EVPP,337,Environmental Policy Making in Developing Countries
+FAVS,304,Film Forms
+FAVS,380,Screenwriting: Television
+FAVS,496,Screenwriting: Advanced
+FNAN,477,Student Managed Investment Fund
+FNAN,493,Financial Planning and Wealth Management Capstone
+FNAN,498,Contemporary Topics in Finance
+FREN,309,Reading and Writing Skills Development
+FRSC,302,Forensic Trace Analysis
+GAME,332,Story Design for Computer Games
+GCH,411,Health Program Planning and Evaluation
+GCH,611,Health Program Planning and Evaluation
+GEOL,305,Environmental Geology
+GEOL,317,Geomorphology
+GEOL,334,Vertebrate Paleontology
+GGS,415,Seminar in Geographic Thought and Methodology
+GOVT,490,Synthesis Seminar
+GOVT,491,Honors Seminar
+GOVT,492,"Computing Ethics, Law and Policy Seminar"
+HAP,465,Integration of Professional Skills and Issues
+HIST,300,Introduction to Historical Method
+HIST,499,Senior Seminar in History
+INTS,321,Parent-Child Relations
+INTS,334,Environmental Justice
+INTS,491,Senior Capstone
+IT,343,IT Project Management
+KINE,450,Research Methods
+KINE,605,Research Methods in Kinesiology
+KORE,370,Advanced Korean Writing
+LAS,499,Research Seminar in Latin American Studies
+MATH,300,Introduction to Advanced Mathematics
+ME,444,Mechanical Design II
+MGMT,313,Organizational Behavior
+MIS,330,Systems Analysis and Design
+MIS,431,Data Mining for Business Applications
+MKTG,471,Marketing Management
+MLAB,300,Science Writing
+MUSI,332,Music History in Society II
+MUSI,438,Music History in Society B
+NEUR,411,Seminar in Neuroscience
+NURS,465,Examination and Integration of Professional and Health Care Issues
+NURS,480,Professional Issues in Nursing
+NUTR,326,Food Systems
+OSCM,456,Quality Management
+PHED,340,Social and Cultural Issues in Physical Education
+PHIL,421,Seminar
+PHIL,422,Honors Seminar
+PHYS,407,Senior Laboratory in Modern Physics
+PHYS,410,Computational Physics Capstone
+PSYC,301,Research Methods in Psychology
+PSYC,304,Principles of Learning
+PSYC,309,"Sensation, Perception, and Information Processing"
+RELI,300,Theories and Methods in Religious Studies
+RELI,420,Capstone Seminar in Studies of Religion
+RUSS,325,Major Russian Writers
+SOCI,303,Methods and Logic of Inquiry
+SOCI,485,Sociological Analysis and Practice
+SOCW,471,Research in Social Work
+SPAN,370,Spanish Writing and Stylistics
+SRST,450,Research Methods
+STAT,489,Pre-Capstone Professional Development
+SYST,489,Senior Seminar
+THR,350,Script Analysis
+THR,351,Dramatic Theory and Criticism
+THR,482,Advanced Screenplay Workshop
+ANTH,400,Engaging the World: Anthropological Perspectives
+ARAB,351,Media Arabic (Spoken and Written)
+ARAB,440,Topics in Arabic Religious Thought and Texts
+ARTH,494,The Museum
+ASTR,402,Methods of Observational Astronomy
+ATEP,441,Senior Seminar in Athletic Training
+AVT,385,EcoArt
+AVT,453,Professional Practices
+AVT,497,Senior Project
+AVT,498,Senior Design Project
+BAS,491,Applied Sciences Capstone
+BAS,493,BAS Capstone
+BENG,492,Senior Advanced Design Project I
+BINF,354,Foundations in Mathematical Biology
+BIOL,301,Biology and Society
+BIOL,379,Ecological Sustainability
+BIS,490,Senior Project
+BUS,498,Capstone Course: Advanced Business Models
+CDS,492,Capstone in Data Science
+CEIE,490,Civil Engineering Senior Design Project I
+CEIE,491,Civil Engineering Senior Design Project II
+CHEM,460,Chemistry in the Kitchen
+CHIN,318,Introduction to Classical Chinese
+CHIN,355,Readings in Chinese Poetry and Poetics
+CHIN,475,Chinese Popular Culture
+COMM,454,Free Speech and Ethics
+CONF,490,Integration
+CONS,490,Integrated Conservation Strategies
+CONS,491,Conservation Management Planning
+CONS,496,Research in Conservation
+COS,310,Introduction to Science Policy
+CRIM,495,"Capstone in Criminology, Law and Society"
+CS,306,Synthesis of Ethics and Law for the Computing Professional
+CS,405,Synthesis of Ethics and Law for the Computing Professional
+CYSE,493,Senior Advanced Design Project II
+DANC,490,Senior Dance Seminar
+ECE,492,Senior Advanced Design Project I
+ECE,493,Senior Advanced Design Project II
+ECED,490,Internship in Early Childhood Education
+ECED,492,Internship in Early Childhood Education (Non-Licensure)
+ECED,493,Internship in Early Childhood Special Education
+ECON,491,Capstone in Economics
+ECON,493,Capstone Internship
+ECON,495,Honors Thesis in Economics
+EDSE,481,Internship: Professional Services
+EDSE,482,Internship: General Curriculum
+EDSE,483,Internship: Adapted Curriculum (Severe Disabilities)
+EDSE,484,Internship: Blindness and Visual Impairments
+ELED,480,Practicum in Elementary Education
+ELED,490,Internship in Elementary Education
+ENGH,401,Honors Thesis Writing Seminar
+ENGH,417,Topics in Folklore Research
+ENGH,458,Topics in Literary Research
+ENGH,470,Topics in Screen Cultures Research
+ENGH,484,Writing Ethnography
+ENGH,486,Writing Nonfiction for the Public
+ENGH,495,Capstone and Thesis
+EVPP,378,Ecological Sustainability
+EVPP,480,Sustainability in Action
+FAVS,352,Ethics of Film and Video
+FAVS,496,Screenwriting: Advanced
+FAVS,499,Career Seminar
+FRLN,385,"Multilingualism, Identity, and Power"
+GAME,490,Senior Game Design Capstone
+GCH,465,Community Health Capstone
+GCH,466,Physical Activity in Public Health Capstone
+GEOL,420,Earth Science and Policy
+GGS,485,Capstone in Geography and Geoinformation Science
+GLOA,400,Global Affairs Capstone
+GLOA,492,Honors Research Project in Global Affairs
+GOVT,490,Synthesis Seminar
+GOVT,491,Honors Seminar
+GOVT,492,"Computing Ethics, Law and Policy Seminar"
+HAP,465,Integration of Professional Skills and Issues
+HAP,498,Health Administration Internship
+HDFS,400,Advanced Family Processes
+HDFS,499,Advanced Internship and Analysis in Human Development and Family Science
+HIST,300,Introduction to Historical Method
+HIST,499,Senior Seminar in History
+IT,492,Senior Design Project I
+IT,493,Senior Design Project II
+KINE,490,Kinesiology Internship
+LAS,499,Research Seminar in Latin American Studies
+LING,480,First Language Acquisition
+LING,497,Linguistics Apex Research
+MATH,400,History of Math (Topic Varies)
+MATH,401,Mathematics through 3D Printing
+ME,444,Mechanical Design II
+MUSI,324,Junior Recital
+MUSI,424,Senior Recital
+MUSI,489,Music Technology Capstone
+MUSI,490,Musical Communication in Context
+MUSI,491,Musical Communication in Performance
+MUSI,495,Internship in Music Education
+NEUR,424,Sleep and Circadian Rhythms
+NEUR,473,Current Neuroscience Research in Germany
+NURS,465,Examination and Integration of Professional and Health Care Issues
+NURS,490,Health Policy and Advocacy in Nursing
+PHED,415,Student Teaching in Physical Education
+PHIL,309,Bioethics
+PHIL,343,Topics in Environmental Philosophy
+PHIL,379,Perspectives on Time
+PHIL,421,Seminar
+PHIL,422,Honors Seminar
+PHYS,407,Senior Laboratory in Modern Physics
+PHYS,410,Computational Physics Capstone
+PROV,342,The George Mason Debates in Current Affairs
+PSYC,405,"Mystery, Madness, and Murder"
+PSYC,406,Psychology of Communication
+PSYC,427,Community Engagement for Social Change
+PSYC,492,Psychology Honors III
+RELI,490,Comparative Study of Religions
+RMGT,490,Recreation Management Internship
+RUSS,353,Russian Civilization
+SEED,492,Internship: Secondary Education English
+SEED,493,Internship: Secondary Education Math
+SEED,494,Internship: Secondary Education Science
+SEED,496,Internship: Secondary Education Computer Science
+SOCI,416,Internship in Sociology I
+SOCI,485,Sociological Analysis and Practice
+SOCW,472,Integrative Methods in Social Action and Social Change
+SPAN,388,Introduction to Latina/o Studies
+SPMT,490,Internship
+STAT,490,Capstone in Statistics
+SYST,495,Senior Design Project II
+THR,440,Advanced Studies in Directing/Dramaturgy
+THR,496,Text in Production
+TOUR,490,"Hospitality, Tourism, and Events Management Internship"
+ANTH,135,Introduction to Biological Anthropology
+ANTH,136,Lab
+ASTR,103,Astronomy
+ASTR,112,The Solar System Lab
+ASTR,111,The Solar System
+ASTR,112,Lab
+ASTR,113,"Stars, Galaxies, and the Universe"
+ASTR,114,Lab
+BIOL,103,Introductory Biology II
+BIOL,105,Lab
+BIOL,107,Intro Biology II Lecture
+BIOL,106,Lab I
+CDS,101,Intro to Computational and Data Sciences
+CDS,102,Lab
+CHEM,211,General Chemistry I
+CHEM,213,Lab I
+CHEM,212,General Chemistry II
+CHEM,214,Lab II
+CHEM,271,General Chemistry for Engineers
+CHEM,272,Lab
+CLIM,101,Global Warming
+CLIM,103,Lab
+CLIM,111,Fundamentals of Atmospheric Science
+CLIM,112,Lab
+CLIM,111,Fundamentals of Atmospheric Science
+CLIM,PHYS 112,PHYS Lab
+EVPP,108,Environmental Science I
+EVPP,109,Lab
+EVPP,112,Environmental Science II
+EVPP,113,Lab
+GEOL,101,Physical Geology
+GEOL,103,Lab
+GEOL,102,Historical Geology
+GEOL,104,Lab
+GEOL,120,Changing Ocean
+GEOL,121,Lab
+GEOL,134,Evolution and Extinction
+GEOL,104,Historical Geology Lab
+PHYS,111,Atmospheric Science
+PHYS,CLIM 112,CLIM Lab
+PHYS,111,Atmospheric Science
+PHYS,112,PHYS Lab
+PHYS,160,University Physics I
+PHYS,161,Lab
+PHYS,170,Intro and Modern Physics I
+PHYS,161,Lab
+PHYS,243,College Physics I
+PHYS,244,Lab
+PHYS,245,College Physics II
+PHYS,246,Lab
+PHYS,260,University Physics II
+PHYS,261,Lab
+PHYS,262,University Physics III
+PHYS,263,Lab
+PHYS,270,Intro and Modern Physics II
+PHYS,261,Lab
