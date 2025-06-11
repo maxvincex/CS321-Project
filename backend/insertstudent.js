@@ -1,50 +1,39 @@
-const mysql = require('mysql2');
+const fs = require('fs');
+const path = require('path');
+const { createObjectCsvWriter } = require('csv-writer');
 
-// Create a Connection to the database
-const connection = mysql.createConnection({
-  host: 'aws.connect.psdb.cloud',
-  user: 'zdp8t5ybqft1t8vhjpbr',
-  password: 'pscale_pw_8yeppTlVTnkBu4Gzz8JVM76rnCLfWqz7lUT16gEEIvu',
-  database: 'student_db',
-  ssl: {
-    rejectUnauthorized: true
-  }
+// Path to CSV
+const filePath = path.join(__dirname, 'students.csv');
+
+// CSV Writer
+const csvWriter = createObjectCsvWriter({
+  path: filePath,
+  header: [
+    { id: 'id', title: 'id' },
+    { id: 'Username', title: 'Username' },
+    { id: 'Password', title: 'Password' },
+    { id: 'Courses', title: 'Courses' },
+    { id: 'Availability', title: 'Availability' },
+    { id: 'Friends', title: 'Friends' }
+  ],
+  append: true
 });
 
-// Example student datacd
-const newStudent = {
-  username: 'Rowan',
-  password: 'password',
-  courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
-  availability: 'weekeneds',
-  friends: JSON.stringify([])
+// Sample student
+const student = {
+  id: Date.now(), // crude unique ID
+  Username: 'Rowan',
+  Password: 'password',
+  Courses: JSON.stringify(['CS312', 'MATH202', 'ENG150']),
+  Availability: 'weekends',
+  Friends: JSON.stringify([])
 };
 
-// Insert query
-const query = `
-  INSERT INTO students (Username, Password, Courses, Availability, Friends)
-  VALUES (?, ?, ?, ?, ?)
-`;
+// Add student to CSV
+csvWriter.writeRecords([student])
+  .then(() => console.log('Student added to CSV'))
+  .catch(err => console.error('Error writing to CSV:', err));
 
-connection.execute(
-  query,
-  [
-    newStudent.username,
-    newStudent.password,
-    newStudent.courses,
-    newStudent.availability,
-    newStudent.friends
-  ],
-  (err, results) => {
-    if (err) {
-      console.error('Error inserting student:', err);
-    } else {
-      console.log('Student inserted with ID:', results.insertId);
-    }
-
-    connection.end();
-  }
-);
 
 
 

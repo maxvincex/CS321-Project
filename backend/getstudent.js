@@ -1,8 +1,5 @@
-
-
-
 function addStudent(username, password, courses, availability, friends) {
-  const sql = `
+    const sql = `
     INSERT INTO students (Username, Password, Courses, Availability, Friends)
     VALUES (?, ?, ?, ?, ?)
   `;
