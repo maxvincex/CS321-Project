@@ -1,61 +1,41 @@
-const fs = require('fs');
-const path = require('path');
-const { createObjectCsvWriter } = require('csv-writer');
+const { readAllStudents, writeAllStudents } = require('./studentUtils');
+const { getAllCourses } = require('./readCourses');
 
-// Path to CSV
-const filePath = path.join(__dirname, 'students.csv');
+function insertStudent(student) {
+  getAllCourses((err, validCourses) => {
+    if (err) return console.error('❌ Failed to read courses:', err);
 
-// CSV Writer
-const csvWriter = createObjectCsvWriter({
-  path: filePath,
-  header: [
-    { id: 'id', title: 'id' },
-    { id: 'Username', title: 'Username' },
-    { id: 'Password', title: 'Password' },
-    { id: 'Courses', title: 'Courses' },
-    { id: 'Availability', title: 'Availability' },
-    { id: 'Friends', title: 'Friends' }
-  ],
-  append: true
-});
+    student.Courses = student.Courses.filter(course =>
+      validCourses.includes(course)
+    );
 
-// Example student datacd
-const newStudent = {
-  username: 'Rowan',
-  password: 'password',
-  courses: JSON.stringify(["CS312", "MATH202", "ENG150"]),
-  availability: 'weekeneds',
-  friends: JSON.stringify([])
-};
-
-// Insert query
-const query = `
-  INSERT INTO students (Username, Password, Courses, Availability, Friends)
-  VALUES (?, ?, ?, ?, ?)
-`;
-
-connection.execute(
-  query,
-  [
-    newStudent.username,
-    newStudent.password,
-    newStudent.courses,
-    newStudent.availability,
-    newStudent.friends
-  ],
-  (err, results) => {
-    if (err) {
-      console.error('Error inserting student:', err);
-    } else {
-      console.log('Student inserted with ID:', results.insertId);
+    if (student.Courses.length === 0) {
+      return console.log('❌ No valid courses. Student not added.');
     }
 
-    connection.end();
-  }
-);
+    readAllStudents((err, students) => {
+      if (students.find(s => s.Email === student.Email)) {
+        return console.log('❌ Email already exists.');
+      }
 
+      const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
+      student.id = nextId;
 
+      students.push(student);
 
+      writeAllStudents(students, (err) => {
+        if (err) return console.error('❌ Write error:', err);
+        console.log(`✅ Student '${student.Email}' added.`);
+      });
+    });
+  });
+}
 
-
-
+// Example
+insertStudent({
+  Email: 'rana@anything.com',
+  Password: 'mypassword',
+  Courses: ['cs262'],
+  Availability: 'weekends',
+  Friends: []
+});
