@@ -6,9 +6,6 @@ const connection = mysql.createConnection({
   user: 'zdp8t5ybqft1t8vhjpbr',
   password: 'pscale_pw_8yeppTlVTnkBu4Gzz8JVM76rnCLfWqz7lUT16gEEIvu',
   database: 'student_db',
-  ssl: {
-    rejectUnauthorized: true
-  }
 });
 
 // Example student datacd
