@@ -1,21 +1,5 @@
 const { readAllStudents, writeAllStudents } = require('./studentUtils');
 
-/**
- * Authenticates a student using email and password.
- * @param {string} email
- * @param {string} password
- * @param {function} callback - (err, student or null)
- */
-function loginStudent(email, password, callback) {
-  readAllStudents((err, students) => {
-    if (err) return callback(err, null);
-
-    const student = students.find(s => s.Email === email && s.Password === password);
-    if (!student) return callback(null, null);
-
-    callback(null, student);
-  });
-}
 
 /**
  * Adds a friend by ID to a student's Friends list.
