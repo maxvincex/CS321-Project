@@ -1,14 +1,21 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <label for="time-select">Select Availability:</label>
-    <select id="time-select" v-model="selectedTime">
-      <option disabled value="">Please select</option>
-      <option>Weekdays</option>
-      <option>Weekends</option>
-      <option>Evenings</option>
-      <option>Anytime</option>
-    </select>
-    <button type="submit">Save</button>
+    <h2>Select Your Availability</h2>
+
+    <label>
+      <input type="radio" value="Weekdays" v-model="availability" />
+      Weekdays
+    </label>
+    <label>
+      <input type="radio" value="Weekends" v-model="availability" />
+      Weekends
+    </label>
+    <label>
+      <input type="radio" value="Anytime" v-model="availability" />
+      Anytime
+    </label>
+
+    <button type="submit">Submit</button>
     <p v-if="message">{{ message }}</p>
   </form>
 </template>
@@ -18,19 +25,37 @@ export default {
   name: 'TimeAvailabilityForm',
   data() {
     return {
-      selectedTime: '',
+      availability: '',
       message: ''
-    }
+    };
   },
   methods: {
     handleSubmit() {
-      if (this.selectedTime) {
-        this.message = `Availability set to: ${this.selectedTime}`;
-        // You can later emit this data or save to a database
+      if (this.availability) {
+        this.message = `Availability set to: ${this.availability}`;
       } else {
-        this.message = 'Please select a time.';
+        this.message = 'Please select your availability.';
       }
     }
   }
-}
+};
 </script>
+
+<style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+label {
+  margin-left: 5px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+</style>

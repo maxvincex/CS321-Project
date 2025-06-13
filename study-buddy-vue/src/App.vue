@@ -1,18 +1,31 @@
 <template>
-  <div>
-    <h1>Study Buddy</h1>
-    <ClassesForm />
+  <div class="main-container">
+    <nav>
+      <router-link to="/classes">Classes</router-link>
+      <router-link to="/availability">Availability</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
 <script>
-import ClassesForm from './components/ClassesForm.vue'
-import TimeAvailabilityForm from './components/TimeAvailabilityForm.vue'
-
 export default {
-  components: {
-    ClassesForm,
-    TimeAvailabilityForm
-  }
+  name: 'App'
 }
 </script>
+
+<style scoped>
+nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+router-link {
+  color: #ddd;
+  text-decoration: none;
+}
+router-link:hover {
+  text-decoration: underline;
+}
+</style>
