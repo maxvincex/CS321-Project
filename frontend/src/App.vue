@@ -24,7 +24,9 @@
   <div v-if="friends.length > 0" class="mt-6 p-4 bg-white max-w-md mx-auto rounded shadow">
     <h2 class="text-lg font-bold mb-2">Your Friends</h2>
     <ul>
-      <li v-for="friend in friends" :key="friend">{{ friend }}</li>
+      <li v-for="(friend, index) in friends" :key="index">
+        {{ friend }}
+      </li>
     </ul>
   </div>
 
