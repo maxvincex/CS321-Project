@@ -1,12 +1,16 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
+const getFriendsRoute = require('./getFriends'); //mounting the route for get friends
 
 const app = express();
 const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
+
+
+app.use('/', getFriendsRoute);
 
 // Dummy profile data
 const userProfile = {
