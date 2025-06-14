@@ -3,6 +3,7 @@
     <nav class="bg-gray-800 text-white p-4 flex justify-center space-x-6">
       <RouterLink to="/" class="hover:underline">Home</RouterLink>
       <RouterLink to="/profile" class="hover:underline">Profile</RouterLink>
+      <RouterLink to="/create-account" class="hover:underline">Create Account</RouterLink>
     </nav>
     <RouterView />
   </div>
