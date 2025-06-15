@@ -1,188 +1,202 @@
 <template>
-  <!-- this is a comment for trial -->
-  <div class="page-wrapper">
-    <h1 class="logo">StudyBuddy - Create Account</h1>
-
-    <form class="form-box" @submit.prevent="handleCreateAccount">
-      <label for="email">Email *</label>
+  <div class="max-w-md mx-auto mt-16 p-6 border rounded shadow">
+    <h1 class="text-3xl font-bold mb-6 text-center">StudyBuddy - Create Account</h1>
+    <form @submit.prevent="handleCreateAccount" novalidate>
+      <label for="email" class="block font-semibold">Email <span class="text-red-600">*</span></label>
       <input
         id="email"
+        v-model="email"
         type="email"
         placeholder="Enter your email"
-        v-model="email"
+        class="w-full p-2 border rounded mb-1"
         required
       />
+      <p v-if="emailError" class="text-red-600 mb-2">{{ emailError }}</p>
 
-      <label for="password">Password *</label>
+      <label for="password" class="block font-semibold">Password <span class="text-red-600">*</span></label>
       <input
         id="password"
+        v-model="password"
         type="password"
         placeholder="Enter your password"
-        v-model="password"
+        class="w-full p-2 border rounded mb-1"
         required
       />
-      <p class="password-note">
+      <p class="text-red-600 mb-2">
         Password must consist of at least 8 characters and one number.
       </p>
 
-      <label for="firstName">First Name *</label>
+      <label for="firstName" class="block font-semibold">First Name <span class="text-red-600">*</span></label>
       <input
         id="firstName"
-        type="text"
-        placeholder="Enter your first name"
         v-model="firstName"
+        type="text"
+        placeholder="First name"
+        class="w-full p-2 border rounded mb-1"
         required
       />
 
-      <label for="lastName">Last Name *</label>
+      <label for="lastName" class="block font-semibold">Last Name <span class="text-red-600">*</span></label>
       <input
         id="lastName"
-        type="text"
-        placeholder="Enter your last name"
         v-model="lastName"
+        type="text"
+        placeholder="Last name"
+        class="w-full p-2 border rounded mb-1"
         required
       />
 
-      <label for="major">Major *</label>
+      <label for="major" class="block font-semibold">Major <span class="text-red-600">*</span></label>
       <input
         id="major"
-        type="text"
-        placeholder="Enter your major"
         v-model="major"
+        type="text"
+        placeholder="Your major"
+        class="w-full p-2 border rounded mb-1"
         required
       />
 
-      <label for="classes">Classes *</label>
+      <label for="classes" class="block font-semibold">Classes <span class="text-red-600">*</span></label>
       <input
         id="classes"
-        type="text"
-        placeholder="e.g. CS321, HIST101, MATH203"
         v-model="classes"
+        type="text"
+        placeholder="Comma-separated class codes"
+        class="w-full p-2 border rounded mb-1"
         required
       />
 
-      <label>Availability *</label>
-      <div class="availability-group">
-        <label><input type="radio" value="anytime" v-model="availability" /> Anytime</label>
-        <label><input type="radio" value="weekday" v-model="availability" /> Weekday</label>
-        <label><input type="radio" value="weekend" v-model="availability" /> Weekend</label>
+      <p class="block font-semibold mb-1">Availability (choose one or both weekdays/weekends or anytime)</p>
+      <div class="mb-4">
+        <label class="inline-flex items-center mr-4">
+          <input type="checkbox" value="weekday" v-model="availabilityWeekday" @change="handleAvailabilityChange" />
+          <span class="ml-2">Weekday</span>
+        </label>
+        <label class="inline-flex items-center mr-4">
+          <input type="checkbox" value="weekend" v-model="availabilityWeekend" @change="handleAvailabilityChange" />
+          <span class="ml-2">Weekend</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input
+            type="checkbox"
+            value="anytime"
+            v-model="availabilityAnytime"
+            @change="handleAvailabilityChange"
+          />
+          <span class="ml-2">Anytime</span>
+        </label>
       </div>
 
-      <button type="submit" class="btn btn-blue">Create Account</button>
+      <p v-if="availabilityError" class="text-red-600 mb-2">{{ availabilityError }}</p>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white font-semibold p-3 rounded hover:bg-blue-700 transition"
+      >
+        Create Account
+      </button>
+
+      <p v-if="generalError" class="mt-4 text-red-600 text-center">{{ generalError }}</p>
     </form>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const email = ref("");
-const password = ref("");
-const firstName = ref("");
-const lastName = ref("");
-const major = ref("");
-const classes = ref("");
-const availability = ref("anytime");
+const email = ref('')
+const password = ref('')
+const firstName = ref('')
+const lastName = ref('')
+const major = ref('')
+const classes = ref('')
+const availabilityWeekday = ref(false)
+const availabilityWeekend = ref(false)
+const availabilityAnytime = ref(false)
 
-const router = useRouter();
+const emailError = ref('')
+const availabilityError = ref('')
+const generalError = ref('')
 
-const handleCreateAccount = () => {
-  // TODO: Validate inputs, call backend API to create account
+const router = useRouter()
 
-  alert(
-    `Creating account for ${email.value} with availability ${availability.value}`
-  );
-  router.push("/"); // Redirect to homepage or sign in page after account creation
-};
+function handleAvailabilityChange() {
+  // If 'anytime' is checked, uncheck weekday and weekend, and vice versa
+  if (availabilityAnytime.value) {
+    availabilityWeekday.value = false
+    availabilityWeekend.value = false
+  } else {
+    if (availabilityWeekday.value || availabilityWeekend.value) {
+      availabilityAnytime.value = false
+    }
+  }
+}
+
+function validateForm() {
+  emailError.value = ''
+  availabilityError.value = ''
+  generalError.value = ''
+
+  if (!email.value) {
+    emailError.value = 'Email is required.'
+    return false
+  }
+  if (!password.value || !/(?=.*\d).{8,}/.test(password.value)) {
+    generalError.value = 'Password must be at least 8 characters and contain a number.'
+    return false
+  }
+  if (!firstName.value || !lastName.value || !major.value || !classes.value) {
+    generalError.value = 'Please fill in all required fields.'
+    return false
+  }
+  if (
+    !availabilityAnytime.value &&
+    !availabilityWeekday.value &&
+    !availabilityWeekend.value
+  ) {
+    availabilityError.value = 'Please select your availability.'
+    return false
+  }
+  return true
+}
+
+async function handleCreateAccount() {
+  if (!validateForm()) return
+
+  const availability = availabilityAnytime.value
+    ? 'anytime'
+    : [availabilityWeekday.value && 'weekday', availabilityWeekend.value && 'weekend']
+        .filter(Boolean)
+        .join(',')
+
+  try {
+    const response = await fetch('http://localhost:3001/create-account', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        major: major.value,
+        classes: classes.value.split(',').map(c => c.trim()),
+        availability,
+      }),
+    })
+
+    const data = await response.json()
+
+    if (data.success) {
+      router.push('/')
+    } else if (data.error === 'email_exists') {
+      emailError.value = 'An account with this email already exists.'
+    } else {
+      generalError.value = 'Failed to create account. Please try again.'
+    }
+  } catch (err) {
+    generalError.value = 'Server error. Please try later.'
+    console.error(err)
+  }
+}
 </script>
-
-<style>
-/* Reuse styles from Homepage.vue */
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-  font-family: Arial, sans-serif;
-  background-color: #f7f9f9;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-.logo {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #2f855a;
-  margin-bottom: 30px;
-}
-
-.form-box {
-  width: 360px;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  text-align: left;
-}
-
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-input[type="email"],
-input[type="password"],
-input[type="text"] {
-  width: 100%;
-  padding: 12px 18px;
-  margin-bottom: 15px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  box-sizing: border-box;
-  outline: none;
-}
-
-.password-note {
-  font-size: 0.85rem;
-  color: #e53e3e;
-  margin-top: -10px;
-  margin-bottom: 15px;
-}
-
-.availability-group {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.availability-group label {
-  font-weight: normal;
-  color: #2d3748;
-  cursor: pointer;
-}
-
-.availability-group input {
-  margin-right: 6px;
-}
-
-.btn {
-  width: 100%;
-  padding: 14px;
-  font-size: 1.1rem;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  color: white;
-  background-color: #3182ce; /* blue */
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #2c5282;
-}
-</style>

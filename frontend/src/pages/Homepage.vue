@@ -1,35 +1,49 @@
 <template>
-  <div class="page-wrapper">
-    <h1 class="logo">StudyBuddy</h1>
+  <div class="max-w-md mx-auto mt-16 p-6 border rounded shadow">
+    <h1 class="text-4xl font-bold mb-8 text-center text-green-700">StudyBuddy</h1>
 
-    <div class="form-box">
-      <form @submit.prevent="handleSignIn">
-        <label for="email">Email *</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          v-model="email"
-          required
-        />
+    <form @submit.prevent="login" novalidate>
+      <label for="email" class="block font-semibold">Email</label>
+      <input
+        id="email"
+        v-model="email"
+        type="email"
+        placeholder="Enter your email"
+        class="w-full p-2 border rounded mb-1"
+        required
+      />
+      <p v-if="loginError && loginErrorType === 'email'" class="text-red-600 mb-2">{{ loginError }}</p>
 
-        <label for="password">Password *</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter your password"
-          v-model="password"
-          required
-        />
-        <p class="password-note">Password must consist of at least 8 characters and one number.</p>
+      <label for="password" class="block font-semibold">Password</label>
+      <input
+        id="password"
+        v-model="password"
+        type="password"
+        placeholder="Enter your password"
+        class="w-full p-2 border rounded mb-1"
+        required
+      />
+      <p v-if="loginError && loginErrorType === 'password'" class="text-red-600 mb-2">{{ loginError }}</p>
 
-        <button type="submit" class="btn btn-green">Sign In</button>
-      </form>
+      <button
+        type="submit"
+        class="w-full bg-green-600 text-white font-semibold p-3 rounded hover:bg-green-700 transition"
+      >
+        Sign In
+      </button>
+    </form>
 
-      <p class="separator">or</p>
-
-      <button @click="goToCreateAccount" class="btn btn-blue">Create Account</button>
+    <div class="mt-6 text-center">
+      <p>Don't have an account? </p>
+      <button
+        @click="goToCreateAccount"
+        class="mt-2 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      >
+        Create Account
+      </button>
     </div>
+
+    <p v-if="generalError" class="mt-4 text-red-600 text-center">{{ generalError }}</p>
   </div>
 </template>
 
@@ -39,107 +53,48 @@ import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
+const loginError = ref('')
+const loginErrorType = ref('') // 'email' or 'password'
+const generalError = ref('')
+
 const router = useRouter()
 
-const handleSignIn = () => {
-  // Your sign-in logic here
-  alert(`Signing in with email: ${email.value}`)
+async function login() {
+  loginError.value = ''
+  generalError.value = ''
+  loginErrorType.value = ''
+
+  try {
+    const res = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    })
+
+    const result = await res.json()
+
+    if (result.success) {
+      localStorage.setItem('user', email.value)
+      router.push('/profile')
+    } else if (result.error === 'email_not_found') {
+      loginError.value = 'This email is not linked to an account. Please create an account.'
+      loginErrorType.value = 'email'
+    } else if (result.error === 'wrong_password') {
+      loginError.value = 'Incorrect password. Please try again.'
+      loginErrorType.value = 'password'
+    } else {
+      generalError.value = 'Login failed. Please try again.'
+    }
+  } catch (err) {
+    generalError.value = 'Server error. Please try later.'
+    console.error(err)
+  }
 }
 
-const goToCreateAccount = () => {
+function goToCreateAccount() {
   router.push('/create-account')
 }
 </script>
-
-<style>
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 80px;
-  font-family: Arial, sans-serif;
-  background-color: #f7f9f9;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-.logo {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #2f855a; /* dark green */
-  margin-bottom: 40px;
-}
-
-.form-box {
-  width: 360px;
-  background: white;
-  padding: 30px 40px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-  text-align: center;
-}
-
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  text-align: left;
-}
-
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 12px 18px;
-  margin-bottom: 15px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  box-sizing: border-box;
-  outline: none;
-}
-
-.password-note {
-  font-size: 0.85rem;
-  color: #e53e3e; /* red */
-  margin-top: -10px;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-.btn {
-  width: 100%;
-  padding: 14px;
-  font-size: 1.1rem;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.btn-green {
-  background-color: #38a169; /* green */
-  color: white;
-  margin-bottom: 15px;
-}
-
-.btn-green:hover {
-  background-color: #2f855a;
-}
-
-.btn-blue {
-  background-color: #3182ce; /* blue */
-  color: white;
-}
-
-.btn-blue:hover {
-  background-color: #2c5282;
-}
-
-.separator {
-  margin: 15px 0;
-  font-weight: 600;
-  color: #718096; /* gray */
-}
-</style>
