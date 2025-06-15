@@ -11,6 +11,7 @@ describe('SearchPage.vue', () => {
       })
     );
     localStorage.setItem('availability', 'anytime');
+
   });
 
   it('displays result when valid course is searched', async () => {
@@ -29,7 +30,7 @@ describe('SearchPage.vue', () => {
     const wrapper = mount(SearchPage);
     await wrapper.vm.$nextTick();
 
-    wrapper.setData({ searchQuery: 'ABC999' });
+    wrapper.vm.searchQuery = 'ABC999';
     await wrapper.vm.$nextTick();
 
     expect(wrapper.find('.no-results').text()).toContain('Not a valid course');
@@ -45,7 +46,8 @@ describe('SearchPage.vue', () => {
     const wrapper = mount(SearchPage);
     await wrapper.vm.$nextTick();
   
-    wrapper.setData({ searchQuery: 'CS321', selectedTime: 'weekends' });
+    wrapper.vm.searchQuery = 'CS321';
+    wrapper.vm.selectedTime = 'weekends';    
     await wrapper.vm.$nextTick();
   
     expect(wrapper.vm.filteredCourses.length).toBe(0);
@@ -62,10 +64,13 @@ describe('SearchPage.vue', () => {
     const wrapper = mount(SearchPage);
     await wrapper.vm.$nextTick();
   
-    wrapper.setData({ searchQuery: 'CS321', selectedTime: 'weekends' });
+    wrapper.vm.searchQuery = 'CS321';
+    await wrapper.vm.$nextTick();
+
+    wrapper.vm.selectedTime = 'weekends';
     await wrapper.vm.$nextTick();
   
     const text = wrapper.find('.no-results').text();
-    expect(text.toLowerCase()).toContain('no matches');
+    expect(text.toLowerCase()).toContain('no matches found');
   });
 });
