@@ -1,41 +1,65 @@
 const { readAllStudents, writeAllStudents } = require('./studentUtils');
-const { getAllCourses } = require('./readCourses');
+const {
+  isValidCourseList,
+  isEmailTaken,
+  isValidPassword
+} = require('./verifyStudent');
 
+/**
+ * Inserts a new student into the system after validation.
+ * @param {Object} student - The student object.
+ * @param {string} student.Email
+ * @param {string} student.Password
+ * @param {string[]} student.Courses
+ * @param {string} student.Availability
+ * @param {number[]} student.Friends
+ */
 function insertStudent(student) {
-  getAllCourses((err, validCourses) => {
-    if (err) return console.error('❌ Failed to read courses:', err);
+  if (!isValidPassword(student.Password, student.Email)) {
+    return console.log('❌ Password must be at least 8 characters, include a letter and a number, and not be the same as the email.');
+  }
 
-    student.Courses = student.Courses.filter(course =>
-      validCourses.includes(course)
-    );
+  isEmailTaken(student.Email, (err, taken) => {
+    if (err) return console.error('❌ Failed to check email:', err);
+    if (taken) return console.log('❌ Email already exists.');
 
-    if (student.Courses.length === 0) {
-      return console.log('❌ No valid courses. Student not added.');
-    }
+    isValidCourseList(student.Courses, (err, filteredCourses) => {
+      if (err) return console.error('❌ Failed to validate courses:', err);
 
-    readAllStudents((err, students) => {
-      if (students.find(s => s.Email === student.Email)) {
-        return console.log('❌ Email already exists.');
+      student.Courses = filteredCourses;
+
+      if (student.Courses.length === 0) {
+        return console.log('❌ No valid courses. Student not added.');
       }
 
-      const nextId = students.length > 0 ? Math.max(...students.map(s => s.id)) + 1 : 1;
-      student.id = nextId;
+      readAllStudents((err, students) => {
+        if (err) return console.error('❌ Failed to read students:', err);
 
-      students.push(student);
+        const nextId = students.length > 0
+          ? Math.max(...students.map(s => s.id)) + 1
+          : 1;
+        student.id = nextId;
 
-      writeAllStudents(students, (err) => {
-        if (err) return console.error('❌ Write error:', err);
-        console.log(`✅ Student '${student.Email}' added.`);
+        students.push(student);
+
+        writeAllStudents(students, (err) => {
+          if (err) return console.error('❌ Write error:', err);
+          console.log(`✅ Student '${student.Email}' added.`);
+        });
       });
     });
   });
 }
 
-// Example
-insertStudent({
-  Email: 'rana@anything.com',
-  Password: 'mypassword',
-  Courses: ['cs262'],
-  Availability: 'weekends',
-  Friends: []
-});
+// Example usage:
+ insertStudent({
+   Email: 'rowan@example.com',
+   Password: 'abcd12234',
+   Courses: ['CS262', 'CS310', 'CS100'],
+   Availability: 'anytime',
+   Friends: [1, 2]
+ });
+
+module.exports = { insertStudent };
+
+
