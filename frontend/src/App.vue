@@ -20,7 +20,7 @@
       <button @click="logout" class="bg-red-600 text-white px-4 py-2 rounded w-full">Logout</button>
     </div>
 
-    <!-- Friend List -->
+    <!-- Best Friend List -->
   <div v-if="friends.length > 0" class="mt-6 p-4 bg-white max-w-md mx-auto rounded shadow">
     <h2 class="text-lg font-bold mb-2">Your Friends</h2>
     <ul>
