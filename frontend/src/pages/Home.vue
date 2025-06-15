@@ -1,6 +1,19 @@
 <template>
-  <div class="p-6 text-center">
-    <h1 class="text-4xl font-bold mb-4">Welcome to the Home Page</h1>
-    <p>This is your Vue frontend, ready to connect to a Node.js backend.</p>
+  <div>
+    <h1>StudyBuddy</h1>
+    <div class="container">
+      <form>
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Sign In</button>
+        <a href="/create-account">Create Account</a>
+      </form>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "Home"
+};
+</script>

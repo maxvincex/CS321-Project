@@ -1,165 +1,187 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-xl">
-      <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">StudyBuddy - Create Account</h1>
+  <div class="page-wrapper">
+    <h1 class="logo">StudyBuddy - Create Account</h1>
 
-      <form @submit.prevent="submitForm" class="space-y-5">
-        <!-- Email -->
-        <div>
-          <label>Email <span class="text-red-500">*</span>:</label>
-          <input
-            v-model="email"
-            type="email"
-            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <p v-if="emailExists" class="text-red-600 text-sm mt-1">
-            An account with this email already exists.
-          </p>
-        </div>
+    <form class="form-box" @submit.prevent="handleCreateAccount">
+      <label for="email">Email *</label>
+      <input
+        id="email"
+        type="email"
+        placeholder="Enter your email"
+        v-model="email"
+        required
+      />
 
-        <!-- Password -->
-        <div>
-          <label>Password <span class="text-red-500">*</span>:</label>
-          <p class="text-red-600 text-sm mb-1">Password must consist of at least 8 characters and one number.</p>
-          <input
-            v-model="password"
-            type="password"
-            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+      <label for="password">Password *</label>
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+        v-model="password"
+        required
+      />
+      <p class="password-note">
+        Password must consist of at least 8 characters and one number.
+      </p>
 
-        <!-- Name -->
-        <div class="flex space-x-4">
-          <div class="flex-1">
-            <label>First Name <span class="text-red-500">*</span>:</label>
-            <input
-              v-model="firstName"
-              type="text"
-              class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div class="flex-1">
-            <label>Last Name <span class="text-red-500">*</span>:</label>
-            <input
-              v-model="lastName"
-              type="text"
-              class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-        </div>
+      <label for="firstName">First Name *</label>
+      <input
+        id="firstName"
+        type="text"
+        placeholder="Enter your first name"
+        v-model="firstName"
+        required
+      />
 
-        <!-- Major -->
-        <div>
-          <label>Major <span class="text-red-500">*</span>:</label>
-          <input
-            v-model="major"
-            type="text"
-            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+      <label for="lastName">Last Name *</label>
+      <input
+        id="lastName"
+        type="text"
+        placeholder="Enter your last name"
+        v-model="lastName"
+        required
+      />
 
-        <!-- Classes -->
-        <div>
-          <label>Classes <span class="text-red-500">*</span>:</label>
-          <input
-            v-model="classesRaw"
-            type="text"
-            placeholder="e.g. CS321, HIST101, MATH203"
-            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+      <label for="major">Major *</label>
+      <input
+        id="major"
+        type="text"
+        placeholder="Enter your major"
+        v-model="major"
+        required
+      />
 
-        <!-- Availability -->
-        <div>
-          <label>Availability:</label>
-          <div class="flex space-x-4 mt-1">
-            <label class="flex items-center space-x-1">
-              <input type="radio" value="anytime" v-model="availability" />
-              <span>Anytime</span>
-            </label>
-            <label class="flex items-center space-x-1">
-              <input type="radio" value="weekday" v-model="availability" />
-              <span>Weekday</span>
-            </label>
-            <label class="flex items-center space-x-1">
-              <input type="radio" value="weekend" v-model="availability" />
-              <span>Weekend</span>
-            </label>
-          </div>
-        </div>
+      <label for="classes">Classes *</label>
+      <input
+        id="classes"
+        type="text"
+        placeholder="e.g. CS321, HIST101, MATH203"
+        v-model="classes"
+        required
+      />
 
-        <!-- Submit -->
-        <button
-          type="submit"
-          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-        >
-          Create Account
-        </button>
-      </form>
+      <label>Availability *</label>
+      <div class="availability-group">
+        <label><input type="radio" value="anytime" v-model="availability" /> Anytime</label>
+        <label><input type="radio" value="weekday" v-model="availability" /> Weekday</label>
+        <label><input type="radio" value="weekend" v-model="availability" /> Weekend</label>
+      </div>
 
-      <p v-if="successMessage" class="text-green-600 mt-4">{{ successMessage }}</p>
-    </div>
+      <button type="submit" class="btn btn-blue">Create Account</button>
+    </form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const email = ref("");
+const password = ref("");
+const firstName = ref("");
+const lastName = ref("");
+const major = ref("");
+const classes = ref("");
+const availability = ref("anytime");
 
-const email = ref('')
-const password = ref('')
-const firstName = ref('')
-const lastName = ref('')
-const major = ref('')
-const classesRaw = ref('')
-const availability = ref('')
+const router = useRouter();
 
-const emailExists = ref(false)
-const successMessage = ref('')
+const handleCreateAccount = () => {
+  // TODO: Validate inputs, call backend API to create account
 
-async function submitForm() {
-  emailExists.value = false // reset error state
-
-  const classes = classesRaw.value.split(',').map(c => c.trim()).filter(Boolean)
-
-  const newUser = {
-    email: email.value,
-    password: password.value,
-    firstName: firstName.value,
-    lastName: lastName.value,
-    major: major.value,
-    classes,
-    availability: availability.value,
-  }
-
-  try {
-    const response = await fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newUser),
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      if (data.error === 'Email already exists') {
-        emailExists.value = true
-        return
-      } else {
-        alert('Signup failed: ' + data.error)
-        return
-      }
-    }
-
-    successMessage.value = `Account created for ${firstName.value} ${lastName.value}! Redirecting...`
-    setTimeout(() => {
-      router.push('/signin')
-    }, 2000)
-  } catch (err) {
-    console.error(err)
-    alert('Something went wrong.')
-  }
-}
+  alert(
+    `Creating account for ${email.value} with availability ${availability.value}`
+  );
+  router.push("/"); // Redirect to homepage or sign in page after account creation
+};
 </script>
+
+<style>
+/* Reuse styles from Homepage.vue */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  font-family: Arial, sans-serif;
+  background-color: #f7f9f9;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2f855a;
+  margin-bottom: 30px;
+}
+
+.form-box {
+  width: 360px;
+  background: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px 18px;
+  margin-bottom: 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.password-note {
+  font-size: 0.85rem;
+  color: #e53e3e;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+.availability-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.availability-group label {
+  font-weight: normal;
+  color: #2d3748;
+  cursor: pointer;
+}
+
+.availability-group input {
+  margin-right: 6px;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  background-color: #3182ce; /* blue */
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2c5282;
+}
+</style>

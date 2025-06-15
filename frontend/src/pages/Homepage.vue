@@ -1,81 +1,145 @@
 <template>
-  <div class="min-h-screen bg-gray-100 flex flex-col justify-center items-center px-4">
-    <!-- Logo -->
-    <h1 class="text-4xl font-bold mb-8 text-green-600">StudyBuddy</h1>
+  <div class="page-wrapper">
+    <h1 class="logo">StudyBuddy</h1>
 
-    <!-- Sign In Box -->
-    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Sign In</h2>
+    <div class="form-box">
+      <form @submit.prevent="handleSignIn">
+        <label for="email">Email *</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          v-model="email"
+          required
+        />
 
-      <form @submit.prevent="handleLogin" class="space-y-4">
-        <!-- Email -->
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-700">
-            Email <span class="text-red-500">*</span>
-          </label>
-          <input
-            v-model="email"
-            type="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
-        </div>
+        <label for="password">Password *</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          v-model="password"
+          required
+        />
+        <p class="password-note">Password must consist of at least 8 characters and one number.</p>
 
-        <!-- Password -->
-        <div>
-          <label class="block mb-1 text-sm font-medium text-gray-700">
-            Password <span class="text-red-500">*</span>
-          </label>
-          <input
-            v-model="password"
-            type="password"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          />
-        </div>
-
-        <!-- Login Button -->
-        <button
-          type="submit"
-          class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded font-semibold transition"
-        >
-          Login
-        </button>
+        <button type="submit" class="btn btn-green">Sign In</button>
       </form>
 
-      <!-- Divider and Create Account -->
-      <div class="text-center mt-6">
-        <p class="text-sm text-gray-600">or</p>
-        <router-link to="/create-account">
-          <button
-            class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-semibold transition"
-          >
-            Create Account
-          </button>
-        </router-link>
-      </div>
+      <p class="separator">or</p>
+
+      <button @click="goToCreateAccount" class="btn btn-blue">Create Account</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Homepage',
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    handleLogin() {
-      // TODO: replace this with real login logic or backend request
-      console.log("Login attempted with:", this.email, this.password);
-    }
-  }
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const router = useRouter()
+
+const handleSignIn = () => {
+  // Your sign-in logic here
+  alert(`Signing in with email: ${email.value}`)
+}
+
+const goToCreateAccount = () => {
+  router.push('/create-account')
 }
 </script>
 
-<style scoped>
-/* Optional: custom font or extra tweaks */
+<style>
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  font-family: Arial, sans-serif;
+  background-color: #f7f9f9;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2f855a; /* dark green */
+  margin-bottom: 40px;
+}
+
+.form-box {
+  width: 360px;
+  background: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 18px;
+  margin-bottom: 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.password-note {
+  font-size: 0.85rem;
+  color: #e53e3e; /* red */
+  margin-top: -10px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-green {
+  background-color: #38a169; /* green */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.btn-green:hover {
+  background-color: #2f855a;
+}
+
+.btn-blue {
+  background-color: #3182ce; /* blue */
+  color: white;
+}
+
+.btn-blue:hover {
+  background-color: #2c5282;
+}
+
+.separator {
+  margin: 15px 0;
+  font-weight: 600;
+  color: #718096; /* gray */
+}
 </style>
