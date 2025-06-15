@@ -2,9 +2,9 @@
   <div>
     <h1>StudyBuddy</h1>
     <div class="container">
-      <form>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+      <form @submit.prevent="handleLogin">
+        <input v-model="email" type="email" placeholder="Email" />
+        <input v-model="password" type="password" placeholder="Password" />
         <button type="submit">Sign In</button>
         <router-link to="/register" class="text-blue-600 underline text-center block mt-4">
           Create Account
@@ -42,6 +42,7 @@ export default {
         localStorage.setItem("availability", found.availability);
         localStorage.setItem("classes", JSON.stringify(found.classes));
 
+        console.log("Redirecting to profile...");
         this.$router.push("/profile");
       } else {
         alert("Invalid email or password. Try again or register.");

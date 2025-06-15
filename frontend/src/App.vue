@@ -82,7 +82,7 @@ const logout = () => {
   localStorage.removeItem('user')
   loggedInUser.value = ''
   router.push('/')
-  friends.value = []; // ✅ clear friend list on logout
+  friends.value = []; 
 }
 
 
@@ -106,21 +106,20 @@ onMounted(() => {
 -->
 <template>
   <div id="app">
-    <AppHeader v-if="isLoggedIn" />
+    <AppHeader v-if="shouldShowHeader" />
     <router-view />
   </div>
 </template>
 
-<script>
+<script setup>
 import AppHeader from "@/components/AppHeader.vue";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
-export default {
-  name: "App",
-  components: { AppHeader },
-  computed: {
-    isLoggedIn() {
-      return !!localStorage.getItem("firstName");
-    }
-  }
-};
+const route = useRoute();
+
+// Show header only if not on login or register page
+const shouldShowHeader = computed(() => {
+  return !['/login', '/register'].includes(route.path);
+});
 </script>

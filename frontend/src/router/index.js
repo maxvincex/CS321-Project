@@ -10,6 +10,12 @@ import ClassesForm from '../pages/ClassesForm.vue';
 import TimeAvailabilityForm from '../pages/TimeAvailabilityForm.vue';
 
 const routes = [
+  {
+    path: '/',
+    redirect: () => {
+      return localStorage.getItem("firstName") ? '/profile' : '/login';
+    }
+  },
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
   { path: '/register', component: CreateAccount },

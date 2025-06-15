@@ -48,7 +48,7 @@
       },
       logout() {
         localStorage.clear();
-        this.$router.push("/sign-in");
+        this.$router.push("/login");
       }
     },
     mounted() {
@@ -63,7 +63,7 @@
       },
       logout() {
         localStorage.clear();
-        this.$router.push("/sign-in");
+        this.$router.push("/login");
       },
       handleClickOutside(event) {
         if (!this.$el.contains(event.target)) {
