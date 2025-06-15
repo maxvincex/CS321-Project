@@ -1,5 +1,5 @@
 id,Email,Password,Courses,Availability,Friends
-1,rana@anything.com,mypassword,"[""CS262""]",weekends,[]
+1,rana@anything.com,mypassword,"[""CS100""]",weekends,[]
 2,Rowan@anything.com,mypassword,"[""CS262""]",weekends,[]
 3,Rowsar@anything.com,mypassword123,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]"
 4,Rowsr@anything.com,abcd12234,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]"
