@@ -147,19 +147,27 @@ export default {
     fetch(`http://localhost:3002/profile/${studentId}`)
       .then((res) => res.json())
       .then((profile) => {
-        this.firstName = profile.firstName || "";
-        this.lastName = profile.lastName || "";
+        this.firstName = profile.firstName || localStorage.getItem("firstName") || "";
+        this.lastName = profile.lastName || localStorage.getItem("lastName") || "";
         this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
-        this.major = profile.major || "Undeclared";
-        this.classes = profile.classes || [];
-        this.availability = profile.availability || [];
-        this.bio = profile.bio || "";
+        this.major = profile.major || localStorage.getItem("major") || "Undeclared";
+        this.classes = profile.classes || JSON.parse(localStorage.getItem("classes") || "[]");
+        this.availability = profile.availability || localStorage.getItem("availability")?.split(",") || [];
       })
       .catch((err) => {
-        console.error("Failed to load profile:", err);
+        /*console.error("Failed to load profile:", err);
         alert("Unable to load your profile.");
-      });
+      }); */
+      console.warn("Backend not running — using localStorage fallback");
 
+      this.firstName = localStorage.getItem("firstName") || "";
+      this.lastName = localStorage.getItem("lastName") || "";
+      this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
+      this.major = localStorage.getItem("major") || "Undeclared";
+      this.classes = JSON.parse(localStorage.getItem("classes") || "[]");
+      this.availability = localStorage.getItem("availability")?.split(",") || [];
+      this.bio = "This is your default bio.";
+    });
     // Fetch friends
     fetch(`http://localhost:3002/friends/${studentId}`)
       .then((res) => res.json())

@@ -37,6 +37,11 @@ export default {
       if (found) {
         localStorage.setItem("firstName", found.firstName);
         localStorage.setItem("lastName", found.lastName);
+        localStorage.setItem("email", found.email);
+        localStorage.setItem("major", found.major);
+        localStorage.setItem("availability", found.availability);
+        localStorage.setItem("classes", JSON.stringify(found.classes));
+
         this.$router.push("/profile");
       } else {
         alert("Invalid email or password. Try again or register.");

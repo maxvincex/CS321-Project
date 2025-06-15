@@ -161,7 +161,7 @@ function validateForm() {
   return true
 }
 
-async function handleCreateAccount() {
+/*async function handleCreateAccount() {
   if (!validateForm()) return
 
   const availability = availabilityAnytime.value
@@ -188,7 +188,9 @@ async function handleCreateAccount() {
     const data = await response.json()
 
     if (data.success) {
-      router.push('/')
+      localStorage.setItem("firstName", firstName.value);
+      localStorage.setItem("lastName", lastName.value);
+      router.push("/profile");
     } else if (data.error === 'email_exists') {
       emailError.value = 'An account with this email already exists.'
     } else {
@@ -198,5 +200,48 @@ async function handleCreateAccount() {
     generalError.value = 'Server error. Please try later.'
     console.error(err)
   }
+}
+  */
+  function handleCreateAccount() {
+  if (!validateForm()) return;
+
+  const availability = availabilityAnytime.value
+    ? 'anytime'
+    : [availabilityWeekday.value && 'weekdays', availabilityWeekend.value && 'weekends']
+        .filter(Boolean)
+        .join(',');
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  const exists = users.find(u => u.email === email.value);
+  if (exists) {
+    emailError.value = 'An account with this email already exists.';
+    return;
+  }
+
+  const newUser = {
+    email: email.value,
+    password: password.value,
+    firstName: firstName.value,
+    lastName: lastName.value,
+    major: major.value,
+    classes: classes.value.split(',').map(c => c.trim()),
+    availability
+  };
+
+  users.push(newUser);
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // Store logged-in session details
+  localStorage.setItem("firstName", newUser.firstName);
+  localStorage.setItem("lastName", newUser.lastName);
+  localStorage.setItem("major", newUser.major);
+  localStorage.setItem("availability", newUser.availability);
+  localStorage.setItem("classes", JSON.stringify(newUser.classes));
+  localStorage.setItem("email", newUser.email);
+
+
+  alert("Account created! You can now log in.");
+  router.push("/login");
 }
 </script>
