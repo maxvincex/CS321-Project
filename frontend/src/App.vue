@@ -36,72 +36,8 @@
    
 
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { RouterView, RouterLink } from 'vue-router'
-
-
-const email = ref('')
-const password = ref('')
-const loggedInUser = ref(localStorage.getItem('user') || '')
-const router = useRouter()
-const friends = ref([])
-
-const login = async () => {
-  try {
-    const res = await fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value
-      })
-    })
-
-    const result = await res.json()
-    if (result.success) {
-      localStorage.setItem('user', email.value)
-      loggedInUser.value = email.value
-      fetchFriends(email.value) 
-
-      alert('Login successful!')
-    } else {
-      alert('Invalid login. Try again or create an account.')
-       // Instead of alert, redirect to register page
-       // have the user try again but include a register button in the login screen
-      //router.push('/register')
-    }
-  } catch (err) {
-    alert('Server error')
-    console.error(err)
-  }
-}
-const logout = () => {
-  localStorage.removeItem('user')
-  loggedInUser.value = ''
-  router.push('/')
-  friends.value = []; // ✅ clear friend list on logout
-}
-
-
-
-const fetchFriends = async (userEmail) => {
-  try {
-    const studentId = userEmail.split('@')[0]  // Derive studentId from email
-    const res = await fetch(`http://localhost:3002/friends/${studentId}`)
-    const data = await res.json()
-    friends.value = data.friends || []
-  } catch (err) {
-    console.error("Failed to load friends:", err)
-  }
-}
-
-onMounted(() => {
-  if (loggedInUser.value) {
-    fetchFriends(loggedInUser.value);
-  }
-});
-
-
+<script>
+export default {
+  name: "App"
+};
 </script>
