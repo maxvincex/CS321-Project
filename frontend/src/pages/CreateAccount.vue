@@ -1,4 +1,5 @@
 <template>
+  <!-- this is a comment for trial -->
   <div class="page-wrapper">
     <h1 class="logo">StudyBuddy - Create Account</h1>
 
