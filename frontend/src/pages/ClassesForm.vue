@@ -78,10 +78,19 @@ export default {
       this.errorMessage = ''
     },
     handleSubmit() {
-      if (this.classList.length > 0) {
-        this.message = 'Submitted successfully'
-      }
-    }
+  if (this.classList.length === 0) {
+    this.errorMessage = "Add at least one class.";
+    this.message = "";
+    return;
+  }
+
+  const existing = JSON.parse(localStorage.getItem("classes") || "[]");
+  const merged = [...new Set([...existing, ...this.classList])];
+  localStorage.setItem("classes", JSON.stringify(merged));
+
+  this.message = "Classes saved locally.";
+  this.classList = [];
+}
   }
 }
 </script>

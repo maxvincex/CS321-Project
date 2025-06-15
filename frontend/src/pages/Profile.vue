@@ -193,7 +193,7 @@ export default {
       return "gray";
     },
     editClasses() {
-      alert("Edit Classes clicked!");
+      this.$router.push("/edit-classes");
     },
   },
 };
