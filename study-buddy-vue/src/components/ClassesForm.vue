@@ -1,24 +1,34 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <h2>Manage Your Classes</h2>
-    <div class="input-row">
-      <label for="class-input">Add Class:</label>
-      <input id="class-input" v-model="input" placeholder="e.g. CS321" />
-      <button type="button" class="add-button" @click="addClass">Add</button>
-    </div>
+  <div class="page-container">
+    <h1 class="title">Manage Your Classes</h1>
 
-    <ul class="class-list">
-      <li v-for="(cls, index) in classList" :key="index">
-        {{ cls }}
-        <button type="button" @click="removeClass(index)">×</button>
-      </li>
-    </ul>
+    <form class="form-container" @submit.prevent="handleSubmit">
+      <label for="class-input" class="label">Add Class:</label>
+      <div class="input-group">
+        <input
+          id="class-input"
+          v-model="input"
+          placeholder="e.g. CS321"
+          class="input"
+        />
+        <button type="button" class="add-button" @click="addClass">Add</button>
+      </div>
 
-    <button type="submit" class="submit-button">Submit</button>
+      <ul class="class-list">
+        <li v-for="(cls, index) in classList" :key="index">
+          {{ cls }}
+          <button type="button" class="remove-button" @click="removeClass(index)">
+            ✕
+          </button>
+        </li>
+      </ul>
 
-    <p v-if="message" class="success">{{ message }}</p>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-  </form>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="message" class="success">{{ message }}</p>
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -36,13 +46,11 @@ export default {
     }
   },
   created() {
+    // Parse CSV and normalize codes like "CS,321" into "CS321"
     this.classDBArray = classDB
       .split('\n')
       .slice(1) // skip header
-      .map(line => {
-        const [dept, code] = line.trim().split(',')
-        return `${dept}${code}`.toUpperCase()
-      })
+      .map(line => line.trim().split(',').slice(0, 2).join('')) // "CS,321" => "CS321"
   },
   methods: {
     addClass() {
@@ -51,11 +59,13 @@ export default {
 
       if (!this.classDBArray.includes(trimmed)) {
         this.errorMessage = `Class "${trimmed}" not found in database`
+        this.message = ''
         return
       }
 
       if (this.classList.includes(trimmed)) {
         this.errorMessage = `"${trimmed}" is already in your profile`
+        this.message = ''
         return
       }
 
@@ -65,11 +75,11 @@ export default {
     },
     removeClass(index) {
       this.classList.splice(index, 1)
+      this.errorMessage = ''
     },
     handleSubmit() {
       if (this.classList.length > 0) {
         this.message = 'Submitted successfully'
-        this.errorMessage = ''
       }
     }
   }
@@ -77,84 +87,94 @@ export default {
 </script>
 
 <style scoped>
-form {
-  background-color: #1e1e1e;
-  padding: 2rem;
+.page-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
   border-radius: 12px;
-  max-width: 500px;
-  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
   text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-h2 {
-  color: #fff;
-  margin-bottom: 1.5rem;
-}
-
-.input-row {
+.form-container {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-input {
-  padding: 0.5rem 1rem;
+.label {
+  font-weight: 500;
+  color: #444;
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #2a2a2a;
-  color: #fff;
 }
 
-button {
-  padding: 0.5rem 1rem;
+.add-button,
+.submit-button {
+  background-color: #4a4ae6;
+  color: white;
   border: none;
+  padding: 8px 16px;
+  font-weight: 600;
   border-radius: 8px;
-  background-color: #333;
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #555;
+.add-button:hover,
+.submit-button:hover {
+  background-color: #3737b5;
 }
 
 .class-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
   list-style: none;
   padding: 0;
 }
 
 .class-list li {
-  background-color: #444;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background-color: #f9f9f9;
 }
 
-.class-list li button {
-  background: crimson;
-  border-radius: 50%;
-  padding: 0.2rem 0.6rem;
-  font-weight: bold;
-  color: white;
-}
-
-.success {
-  color: #00ff80;
-  margin-top: 1rem;
+.remove-button {
+  background: none;
+  color: red;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .error {
   color: red;
-  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.success {
+  color: green;
+  font-weight: 500;
 }
 </style>
