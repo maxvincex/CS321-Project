@@ -1,24 +1,33 @@
 import { mount } from '@vue/test-utils'
-import TimeAvailabilityForm from '../components/TimeAvailabilityForm.vue'
+import { describe, test, expect } from 'vitest'
+import TimeAvailabilityForm from '../src/pages/TimeAvailabilityForm.vue'
 
 describe('TimeAvailabilityForm.vue', () => {
-  test('renders dropdown and submit button', () => {
+  test('renders all radio buttons and submit button', () => {
     const wrapper = mount(TimeAvailabilityForm)
-    expect(wrapper.find('select').exists()).toBe(true)
-    expect(wrapper.find('button[type="submit"]').exists()).toBe(true)
+
+    const radios = wrapper.findAll('input[type="radio"]')
+    expect(radios).toHaveLength(3)
+
+    const submit = wrapper.find('button[type="submit"]')
+    expect(submit.exists()).toBe(true)
   })
 
-  test('shows error message if nothing selected on submit', async () => {
+  test('shows error message when nothing is selected on submit', async () => {
     const wrapper = mount(TimeAvailabilityForm)
-    await wrapper.find('button[type="submit"]').trigger('click')
-    expect(wrapper.text()).toContain('Please select a time.')
+    await wrapper.find('button[type="submit"]').trigger('submit')
+
+    expect(wrapper.text()).toContain('Please select your availability.')
   })
 
-  test('shows confirmation message when availability is selected and submitted', async () => {
+  test('shows confirmation message when availability is selected', async () => {
     const wrapper = mount(TimeAvailabilityForm)
-    const select = wrapper.find('select')
-    await select.setValue('Weekdays')
-    await wrapper.find('button[type="submit"]').trigger('click')
+
+    const weekdayRadio = wrapper.find('input[value="Weekdays"]')
+    await weekdayRadio.setValue() // simulate selection
+
+    await wrapper.find('button[type="submit"]').trigger('submit')
+
     expect(wrapper.text()).toContain('Availability set to: Weekdays')
   })
 })
