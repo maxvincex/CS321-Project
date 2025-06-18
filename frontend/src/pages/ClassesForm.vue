@@ -50,7 +50,7 @@ export default {
     this.classDBArray = classDB
       .split('\n')
       .slice(1) // skip header
-      .map(line => line.trim().split(',').slice(0, 2).join('')) // "CS,321" => "CS321"
+      .map(line => line.trim().split(',').slice(0, 2).join('')) // "CS,321" => "CS321" 
   },
   methods: {
     addClass() {
@@ -77,18 +77,37 @@ export default {
       this.classList.splice(index, 1)
       this.errorMessage = ''
     },
-    handleSubmit() {
+    async handleSubmit() {
   if (this.classList.length === 0) {
     this.errorMessage = "Add at least one class.";
     this.message = "";
     return;
   }
+  
+  const studentId = localStorage.getItem('id'); // Make sure you're storing student ID
 
-  const existing = JSON.parse(localStorage.getItem("classes") || "[]");
-  const merged = [...new Set([...existing, ...this.classList])];
-  localStorage.setItem("classes", JSON.stringify(merged));
+   for (const cls of this.classList) {
+    try {
+      const res = await fetch("http://localhost:3001/api/addClass", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentId, course: cls })
+      });
 
-  this.message = "Classes saved locally.";
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.error || `Unknown error`);
+      }
+
+    } catch (err) {
+      this.errorMessage = `❌ Could not add ${cls}: ${err.message}`;
+      console.error(err);
+      return;
+    }
+  }
+
+  this.message = "✅ All classes added successfully!";
   this.classList = [];
 }
   }

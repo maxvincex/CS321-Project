@@ -33,3 +33,5 @@ getStudent('rowan@example.com', (err, student) => {
     console.log('✅ Student found:', student);
   }
 });
+
+module.exports = {getStudent};

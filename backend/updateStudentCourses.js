@@ -12,34 +12,39 @@ const { getAllCourses } = require('./readCourses');
  * course is valid based on the course database (DB.csv) and not already in the
  * student's list. If valid, it adds the course and saves the updated data to students.csv.
  */
-function addCourseToStudent(studentId, newCourse) {
+function addCourseToStudent(studentId, newCourse, callback) {
   if (!newCourse || typeof studentId !== 'number') {
-    console.error('❌ Invalid input for add.');
-    return;
+    return callback(new Error('Invalid input'));
   }
 
   getAllCourses((err, validCourses) => {
-    if (err) return console.error('❌ Failed to read courses:', err);
+    if (err) return callback(err);
+    
     if (!validCourses.includes(newCourse)) {
-      return console.log(`❌ '${newCourse}' is not a valid course.`);
+      return callback(new Error('Invalid course'));
     }
 
     readAllStudents((err, students) => {
-      if (err) return console.error('❌ Failed to load students:', err);
-
+      if (err) return callback(err);
+      
       const student = students.find(s => s.id === studentId);
+      if (!student) return callback(new Error("Student not found."));
+
+      if (!Array.isArray(student.Courses)) {
+        student.Courses = [];
+      }
+
       if (student.Courses.includes(newCourse)) {
-        return console.log(`⚠️ Course '${newCourse}' already in your list.`);
+        return callback(new Error('Course already exists'));
       }
 
       student.Courses.push(newCourse);
 
       writeAllStudents(students, (err) => {
-        if (err) console.error('❌ Write error:', err);
-        else {
-          console.log(`✅ '${newCourse}' added to your course list.`);
-          console.log(`📚 Updated Courses: [${student.Courses.join(', ')}]`);
-        }
+        if (err) return callback(err);
+
+        console.log(`✅ '${newCourse}' added to student ${studentId}`);
+        callback(null, student.Courses); // ✅ only call after success
       });
     });
   });

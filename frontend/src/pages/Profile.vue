@@ -48,12 +48,8 @@
           <div class="box time-box">
             <h3>Time Availability:</h3>
             <div class="pills">
-              <span
-                v-for="slot in availability"
-                :key="slot"
-                class="pill red"
-              >
-                {{ slot }}
+              <span class="pill red">
+                {{ availability }}
               </span>
             </div>
           </div>
@@ -125,7 +121,7 @@ export default {
       initials: "",
       major: "",
       classes: [],
-      availability: [],
+      availability: "",
       bio: "",
       showFriends: false,
       friends: [],
@@ -144,43 +140,37 @@ export default {
     console.log("Loading profile for studentId:", studentId);
 
     // Fetch profile
-    fetch(`http://localhost:3002/profile/${studentId}`)
-      .then((res) => res.json())
-      .then((profile) => {
-        this.firstName = profile.firstName || localStorage.getItem("firstName") || "";
-        this.lastName = profile.lastName || localStorage.getItem("lastName") || "";
-        this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
-        this.major = profile.major || localStorage.getItem("major") || "Undeclared";
-        this.classes = profile.classes || JSON.parse(localStorage.getItem("classes") || "[]");
-        this.availability = profile.availability || localStorage.getItem("availability")?.split(",") || [];
-      })
-      .catch((err) => {
-        /*console.error("Failed to load profile:", err);
-        alert("Unable to load your profile.");
-      }); */
-      console.warn("Backend not running — using localStorage fallback");
-
-      this.firstName = localStorage.getItem("firstName") || "";
-      this.lastName = localStorage.getItem("lastName") || "";
+    fetch(`http://localhost:3001/api/profile?email=${encodeURIComponent(email)}`)
+    .then((res) => res.json())
+    .then((profile) => {
+      console.log(profile);
+      this.firstName = profile.FirstName || ""; //first and last name aren't stored in the students.csv either
+      this.lastName = profile.LastName || "";
       this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
-      this.major = localStorage.getItem("major") || "Undeclared";
-      this.classes = JSON.parse(localStorage.getItem("classes") || "[]");
-      this.availability = localStorage.getItem("availability")?.split(",") || [];
-      this.bio = "This is your default bio.";
+      this.major = profile.Major || "Undeclared"; //isn't stored in the students.csv
+      this.classes = profile.Courses || [];
+      this.friends = profile.Friends || [];
+      this.availability = profile.Availability || "";
+      this.bio = profile.Bio || "This is your default bio."; //not stored in students.csv either
+    })
+    .catch((err) => {
+      console.error("Failed to load profile:", err);
+      alert("Unable to load your profile.");
     });
-    // Fetch friends
-    fetch(`http://localhost:3002/friends/${studentId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        this.friends = data.friends.map((username, index) => ({
-          id: index + 1,
-          name: username,
-          initials: (username[0] || "U").toUpperCase(),
-        }));
-      })
-      .catch((err) => {
-        console.error("Failed to load friends:", err);
-      });
+
+  fetch(`http://localhost:3002/friends/${studentId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      this.friends = data.friends.map((username, index) => ({
+        id: index + 1,
+        name: username,
+        initials: (username[0] || "U").toUpperCase(),
+      }));
+    })
+    .catch((err) => {
+      console.error("Failed to load friends:", err);
+    });
+
   },
   methods: {
     disconnect(friendId) {

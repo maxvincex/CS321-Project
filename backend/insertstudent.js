@@ -14,9 +14,12 @@ const {
  * @param {string} student.Availability
  * @param {number[]} student.Friends
  */
-function insertStudent(student) {
-  if (!isValidPassword(student.Password, student.Email)) {
-    return console.log('❌ Password must be at least 8 characters, include a letter and a number, and not be the same as the email.');
+function insertStudent(student, callback = () => {}) {
+  const { Password, Email } = student;
+
+  if (!isValidPassword(Password, Email)) {
+    console.log('❌ Password must be at least 8 characters, include a letter and a number, and not be the same as the email.');
+    return callback(new Error("Invalid password"));
   }
 
   isEmailTaken(student.Email, (err, taken) => {
@@ -53,11 +56,15 @@ function insertStudent(student) {
 
 // Example usage:
  insertStudent({
+   FirstName: 'rowan',
+   LastName: 'test',
    Email: 'rowan@example.com',
    Password: 'abcd12234',
    Courses: ['CS262', 'CS310', 'CS100'],
    Availability: 'anytime',
-   Friends: [1, 2]
+   Friends: [1, 2],
+   Major: "Computer Science",
+   Bio: 'example bio'
  });
 
 module.exports = { insertStudent };

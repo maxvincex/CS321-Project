@@ -13,11 +13,15 @@ function readAllStudents(callback) {
     .on('data', (row) => {
       students.push({
         id: parseInt(row.id),
+        FirstName: row.FirstName,
+        LastName: row.LastName,
         Email: row.Email,
         Password: row.Password,
         Courses: JSON.parse(row.Courses),
         Availability: row.Availability,
-        Friends: JSON.parse(row.Friends)
+        Friends: JSON.parse(row.Friends),
+        Major: row.Major,
+        Bio: row.Bio
       });
     })
     .on('end', () => callback(null, students))
@@ -29,21 +33,27 @@ function writeAllStudents(students, callback) {
     path: filePath,
     header: [
       { id: 'id', title: 'id' },
+      { id: 'FirstName', title: 'FirstName'},
+      { id: 'LastName', title: 'LastName'},
       { id: 'Email', title: 'Email' },
       { id: 'Password', title: 'Password' },
       { id: 'Courses', title: 'Courses' },
       { id: 'Availability', title: 'Availability' },
-      { id: 'Friends', title: 'Friends' }
+      { id: 'Friends', title: 'Friends' },
+      { id: 'Bio', title: 'Bio'},
     ]
   });
 
   const formatted = students.map(s => ({
     id: s.id,
+    FirstName: s.FirstName,
+    LastName: s.LastName,
     Email: s.Email,
     Password: s.Password,
     Courses: JSON.stringify(s.Courses),
     Availability: s.Availability,
-    Friends: JSON.stringify(s.Friends)
+    Friends: JSON.stringify(s.Friends),
+    Bio: s.Bio
   }));
 
   csvWriter.writeRecords(formatted)

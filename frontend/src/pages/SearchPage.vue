@@ -87,14 +87,18 @@
       }
     },
     mounted() {
-      fetch("/api/courses")
-        .then(res => res.json())
-        .then(data => {
-          this.allCourses = data;
-        })
-        .catch(err => {
-          console.error("Error loading courses:", err);
-        });
+       fetch("http://localhost:3001/api/courses")
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch courses");
+      return res.json();
+    })
+    .then((data) => {
+      this.allCourses = data;
+    })
+    .catch((err) => {
+      console.error("Error loading courses:", err);
+      alert("Failed to load course list. Please try again later.");
+    });
     },
   };
   </script>

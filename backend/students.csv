@@ -1,6 +1,6 @@
-id,Email,Password,Courses,Availability,Friends
-1,rana@anything.com,mypassword,"[""CS100""]",weekends,[]
-2,Rowan@anything.com,mypassword,"[""CS262""]",weekends,[]
-3,Rowsar@anything.com,mypassword123,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]"
-4,Rowsr@anything.com,abcd12234,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]"
-5,rowan@example.com,abcd12234,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]"
+id,FirstName,LastName,Email,Password,Courses,Availability,Friends,Major,Bio
+1,rana,test,rana@anything.com,mypassword,"[""CS100""]",weekends,[],Computer Science,test bio
+2,rowan,test,Rowan@anything.com,mypassword,"[""CS262""]",weekends,[],Computer Science,example bio
+3,test,lastname,Rowsar@anything.com,mypassword123,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]",Computer Science,test
+4,qwerty,uiop,Rowsr@anything.com,abcd12234,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]",Computer Science,asdfg
+5,rowan,test,rowan@example.com,abcd12234,"[""CS262"",""CS310"",""CS100""]",anytime,"[1,2]",Computer Science,example bio

@@ -161,47 +161,6 @@ function validateForm() {
   return true
 }
 
-/*async function handleCreateAccount() {
-  if (!validateForm()) return
-
-  const availability = availabilityAnytime.value
-    ? 'anytime'
-    : [availabilityWeekday.value && 'weekday', availabilityWeekend.value && 'weekend']
-        .filter(Boolean)
-        .join(',')
-
-  try {
-    const response = await fetch('http://localhost:3001/create-account', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-        major: major.value,
-        classes: classes.value.split(',').map(c => c.trim()),
-        availability,
-      }),
-    })
-
-    const data = await response.json()
-
-    if (data.success) {
-      localStorage.setItem("firstName", firstName.value);
-      localStorage.setItem("lastName", lastName.value);
-      router.push("/profile");
-    } else if (data.error === 'email_exists') {
-      emailError.value = 'An account with this email already exists.'
-    } else {
-      generalError.value = 'Failed to create account. Please try again.'
-    }
-  } catch (err) {
-    generalError.value = 'Server error. Please try later.'
-    console.error(err)
-  }
-}
-  */
   function handleCreateAccount() {
   if (!validateForm()) return;
 
@@ -230,18 +189,18 @@ function validateForm() {
   };
 
   users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
 
-  // Store logged-in session details
-  localStorage.setItem("firstName", newUser.firstName);
-  localStorage.setItem("lastName", newUser.lastName);
-  localStorage.setItem("major", newUser.major);
-  localStorage.setItem("availability", newUser.availability);
-  localStorage.setItem("classes", JSON.stringify(newUser.classes));
-  localStorage.setItem("email", newUser.email);
-
+  fetch('http://localhost:3001/api/insertStudent', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(newUser)
+}).then(res => res.json()).then(data => {
+    console.log('✅ Student created:', data);
+  }).catch(err => console.error('❌ Error creating student:', err));
 
   alert("Account created! You can now log in.");
   router.push("/login");
-}
+  }
 </script>

@@ -29,25 +29,44 @@ export default {
   },
   methods: {
     async handleLogin() {
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
-      const found = users.find(
-        (u) => u.email === this.email && u.password === this.password
-      );
+      try {
+        const response = await fetch('http://localhost:3001/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password,
+          }),
+        });
 
-      if (found) {
-        localStorage.setItem("firstName", found.firstName);
-        localStorage.setItem("lastName", found.lastName);
-        localStorage.setItem("email", found.email);
-        localStorage.setItem("major", found.major);
-        localStorage.setItem("availability", found.availability);
-        localStorage.setItem("classes", JSON.stringify(found.classes));
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Login failed');
+        }
 
-        console.log("Redirecting to profile...");
-        this.$router.push("/profile");
-      } else {
-        alert("Invalid email or password. Try again or register.");
+        const user = await response.json();
+
+        // Save returned user data to localStorage
+        localStorage.setItem('id', user.id);
+        localStorage.setItem('firstName', user.firstName);
+        localStorage.setItem('lastName', user.lastName);
+        localStorage.setItem('email', user.email);
+        localStorage.setItem('major', user.major);
+        localStorage.setItem('availability', user.availability);
+        localStorage.setItem('classes', JSON.stringify(user.classes));
+        localStorage.setItem('bio', user.bio);
+
+        console.log('✅ Login successful, redirecting...');
+        this.$router.push('/profile');
+
+      } catch (error) {
+        console.error('❌ Login failed:', error.message);
+        alert('Invalid email or password. Try again or register.');
       }
     }
   }
+  
 };
 </script>

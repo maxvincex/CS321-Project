@@ -20,4 +20,9 @@ export default defineConfig({
     globals: true,
     setupFiles: [],
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3001'
+    }
+  }
 })
