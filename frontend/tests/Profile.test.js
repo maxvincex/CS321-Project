@@ -8,6 +8,11 @@ import router from '@/router';
 
 // Suppress alert since jsdom doesn't implement it
 vi.stubGlobal('alert', vi.fn());
+vi.stubGlobal('fetch', vi.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ friends: [] })
+  })
+));
 
 describe('Profile.vue', async () => {
   beforeEach(() => {
@@ -22,6 +27,7 @@ describe('Profile.vue', async () => {
   it('displays name, major and initials', async () => {
     const wrapper = mount(Profile, { global: { plugins: [router] } });
     await flushPromises();
+
     expect(wrapper.text()).toContain('Gesu Mahmadshoeva');
     expect(wrapper.text()).toContain('CS');
     expect(wrapper.text()).toContain('GM'); // initials
@@ -30,6 +36,7 @@ describe('Profile.vue', async () => {
   it('renders all classes from localStorage', async () => {
     const wrapper = mount(Profile, { global: { plugins: [router] } });
     await flushPromises();
+
     expect(wrapper.text()).toContain('CS321');
     expect(wrapper.text()).toContain('CS310');
   });
@@ -38,6 +45,7 @@ describe('Profile.vue', async () => {
     localStorage.setItem('availability', 'weekends,anytime');
     const wrapper = mount(Profile, { global: { plugins: [router] } });
     await flushPromises();
+    
     expect(wrapper.text()).toContain('weekends');
     expect(wrapper.text()).toContain('anytime');
   });

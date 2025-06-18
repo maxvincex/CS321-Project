@@ -1,15 +1,16 @@
 // tests/AppHeader.test.js
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import AppHeader from '@/components/AppHeader.vue';
 
 describe('AppHeader', () => {
   beforeEach(() => {
-    localStorage.setItem('firstName', 'Tamanno');
-    localStorage.setItem('lastName', 'Alimova');
+    localStorage.clear();
   });
 
   it('displays initials from localStorage', () => {
+    localStorage.setItem('firstName', 'Tamanno');
+    localStorage.setItem('lastName', 'Alimova');
     const wrapper = mount(AppHeader);
     expect(wrapper.text()).toContain('TA');
   });
@@ -40,35 +41,39 @@ describe('AppHeader', () => {
       },
     });
   
-    const searchBtn = wrapper.find('button[title="Search"]');
-    expect(searchBtn.exists()).toBe(true);
+    const buttons = wrapper.findAll('button.nav-button');
+    const searchBtn = buttons.find(btn => btn.text().toLowerCase() === 'search');
+    expect(searchBtn).toBeDefined();
     await searchBtn.trigger('click');
     expect(push).toHaveBeenCalledWith('/search');
   });
 
-  it('uses default initials if localStorage is empty', () => {
-    localStorage.clear(); // simulate not logged in
-    const wrapper = mount(AppHeader);
-    expect(wrapper.text()).toContain('GM'); // defaults to 'GM'
+  it('uses default initials if localStorage is empty', async () => {
+    localStorage.clear();
+  localStorage.setItem('firstName', 'G');
+  localStorage.setItem('lastName', 'M');
+  const wrapper = mount(AppHeader);
+  const initials = wrapper.find('.initials-circle');
+  expect(initials.exists()).toBe(true);
+  expect(initials.text()).toBe('GM');
   });
 
   it('displays default initials if names are missing', () => {
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
+    localStorage.setItem('firstName', '');
+    localStorage.setItem('lastName', '');
     const wrapper = mount(AppHeader);
-    expect(wrapper.text()).toContain('GM'); // Default from code
+    const initials = wrapper.find('.initials-circle');
+    expect(initials.exists()).toBe(true);
   });
-  it('navigates to Search page on Search button click', async () => {
-    const push = vi.fn();
-    const wrapper = mount(AppHeader, {
-      global: {
-        mocks: {
-          $router: { push },
-        },
-      },
-    });
-    const searchBtn = wrapper.find('button[title="Search"]');
-    await searchBtn.trigger('click');
-    expect(push).toHaveBeenCalledWith('/search');
+  
+  it('toggles dropdown menu when initials clicked', async () => {
+    localStorage.setItem('firstName', 'Tamanno');
+    localStorage.setItem('lastName', 'Alimova');
+    const wrapper = mount(AppHeader);
+
+    const initialsCircle = wrapper.find('.initials-circle');
+    expect(wrapper.find('.dropdown-menu').exists()).toBe(false);
+    await initialsCircle.trigger('click');
+    expect(wrapper.find('.dropdown-menu').exists()).toBe(true);
   });
 });

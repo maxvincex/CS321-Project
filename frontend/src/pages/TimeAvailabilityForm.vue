@@ -1,23 +1,27 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <h2>Select Your Availability</h2>
+  <div>
+    <form @submit.prevent="handleSubmit">
+      <h2>Select Your Availability</h2>
 
-    <label>
-      <input type="radio" value="Weekdays" v-model="availability" />
-      Weekdays
-    </label>
-    <label>
-      <input type="radio" value="Weekends" v-model="availability" />
-      Weekends
-    </label>
-    <label>
-      <input type="radio" value="Anytime" v-model="availability" />
-      Anytime
-    </label>
+      <label>
+        <input type="radio" value="Weekdays" v-model="availability" />
+        Weekdays
+      </label>
+      <label>
+        <input type="radio" value="Weekends" v-model="availability" />
+        Weekends
+      </label>
+      <label>
+        <input type="radio" value="Anytime" v-model="availability" />
+        Anytime
+      </label>
 
-    <button type="submit">Submit</button>
+      <button type="submit">Submit</button>
+    </form>
+
+    <!-- move the message here so tests can read it in wrapper.text() -->
     <p v-if="message">{{ message }}</p>
-  </form>
+  </div>
 </template>
 
 <script>
