@@ -143,7 +143,6 @@ export default {
     fetch(`http://localhost:3001/api/profile?email=${encodeURIComponent(email)}`)
     .then((res) => res.json())
     .then((profile) => {
-      console.log(profile);
       this.firstName = profile.FirstName || ""; //first and last name aren't stored in the students.csv either
       this.lastName = profile.LastName || "";
       this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
