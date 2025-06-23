@@ -29,5 +29,5 @@ app.get('/friends/:studentId', (req, res) => {
 });
 
 app.listen(3001, () => {
-  console.log('Friend list server running on http://localhost:3001');
+  console.log('Friend list server running on http://localhost:3002');
 });
