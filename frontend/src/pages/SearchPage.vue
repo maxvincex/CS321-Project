@@ -23,7 +23,10 @@
             <option value="weekdays">Weekdays</option>
             <option value="weekends">Weekends</option>
           </select>
+
+          <button class="search-btn" @click="searchMatches">Search</button>
         </div>
+
   
         <!-- Results -->
         <div class="results-section">
@@ -57,7 +60,8 @@
   
   <script>
   import AppHeader from "@/components/AppHeader.vue";
-  
+  import axios from 'axios';
+
   export default {
     name: "SearchPage",
     components: {
@@ -65,12 +69,31 @@
     },
     data() {
       return {
-        allCourses: [],
-        searchQuery: "",
-        selectedTime: "",
-        myAvailability: (localStorage.getItem("availability") || "anytime,weekends").split(","),
+        searchQuery: '',
+        selectedTime: '',
+        targetClass: '',
+        myAvailability: 'anytime', // or array of strings
+        myConnections: [], // Array of student IDs
+        myId: null, // set this from login or profile
+        results: [],
       };
-    },
+  },
+  methods: {
+    async searchMatches() {
+      try {
+        const response = await axios.post('http://localhost:3001/api/searchMatches', {
+          targetClass: this.searchQuery.trim().toUpperCase(),  // use the text box value
+          myId: this.myId || 1,  // hardcoded for now unless you have login
+          myAvailability: this.selectedTime || 'anytime',
+          myConnections: this.myConnections || []
+        });
+
+        this.results = response.data.results;
+      } catch (error) {
+        console.error('Error fetching matches:', error);
+      }
+    }
+  },
     computed: {
       filteredCourses() {
         return this.allCourses.filter(course => {

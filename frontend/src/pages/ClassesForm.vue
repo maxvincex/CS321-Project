@@ -18,6 +18,22 @@
       </button>
     </div>
 
+    <!-- REMOVE CLASS -->
+    <div class="form-row">
+      <label for="remove-input">Remove Class:</label>
+      <input
+        id="remove-input"
+        v-model="removeCourse"
+        type="text"
+        placeholder="e.g. CS321"
+        class="text-input"
+        @keyup.enter="handleRemove"
+      />
+      <button type="button" class="btn action-btn" @click="handleRemove">
+        Remove
+      </button>
+    </div>
+
     <!-- CURRENT CLASSES LIST -->
     <div class="classes-list" v-if="classList.length">
       <h2>Your Classes:</h2>
@@ -113,6 +129,34 @@ export default {
         alert(`⚠️ Error adding "${course}": ${err.message}`);
       }
     },
+
+      // REMOVE handler — same styling & flow, but checks classList first
+      async handleRemove() {
+        const course = this.removeCourse.trim().toUpperCase();
+        if (!course) {
+          return alert("Please enter a class code to remove.");
+        }
+        if (this.classList.includes(course)) {
+          return alert(`⚠️ You don't have "${course}" to remove.`);
+        }
+        try {
+          const res = await fetch("/api/removeClass", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ studentId: this.userId, course }),
+          });
+          const body = await res.json();
+          if (!res.ok) {
+            return alert(`⚠️ Could not remove "${course}": ${body.error}`);
+          }
+          alert(`✅ "${course}" removed successfully!`);
+          this.removeCourse = "";
+          await this.reloadClasses();
+        } catch (err) {
+          console.error("Remove failed:", err);
+          alert(`⚠️ Error removing "${course}": ${err.message}`);
+        }
+      },
 
     goBack() {
       this.$router.push("/profile");

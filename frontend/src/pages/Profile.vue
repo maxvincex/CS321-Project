@@ -146,7 +146,7 @@ export default {
       this.firstName = profile.FirstName || ""; //first and last name aren't stored in the students.csv either
       this.lastName = profile.LastName || "";
       this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
-      this.major = profile.Major || "Undeclared"; //isn't stored in the students.csv
+      this.major = profile.Major || "Computer Science"; //isn't stored in the students.csv
       this.classes = profile.Courses || [];
       this.friends = profile.Friends || [];
       this.availability = profile.Availability || "";
