@@ -1,12 +1,14 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const getFriendsRoute = require('./getFriends'); //mounting the route for get friends
+//const getFriendsRoute = require('./getFriends'); //mounting the route for get friends
 const { insertStudent } = require('./insertstudent');
 const { getStudent } = require('./getstudent');
 const { getAllCourses } = require('./readCourses'); 
 const { addCourseToStudent, removeCourseFromStudent } = require('./updateStudentCourses'); // or your filename
-
+const { mainMatch } = require('./searchAlgorithm');
+const { readAllStudents } = require('./studentUtils');
+const { addFriend } = require('./studentActions');
 
 const app = express();
 const PORT = 3001;
@@ -133,6 +135,74 @@ app.post('/api/removeClass', (req, res) => {
   });
 });
 
+app.get('/api/students', (req, res) => {
+  const { course, myId, availability, connections } = req.query;
+
+  //if (!course || !myId) {
+  if (!course) {
+
+    return res.status(400).json({ error: 'Missing required fields: course and myId' });
+  }
+
+  //const parsedId = parseInt(myId);
+  const parsedId = parseInt(myId) || 0;
+  const parsedConnections = connections ? connections.split(',').map(Number) : [];
+
+  readAllStudents((err, studentData) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read student data' });
+    }
+
+    const results = mainMatch(
+      studentData,
+      course.trim().toUpperCase(),
+      parsedId,
+      availability || "anytime",
+      parsedConnections
+    );
+
+    res.status(200).json(results || []);
+  });
+});
+
+app.post('/api/connect', (req, res) => {
+  const { studentId, friendId } = req.body;
+
+  if (!studentId || !friendId) {
+    return res.status(400).json({ error: 'Missing studentId or friendId' });
+  }
+
+  if (studentId === friendId) {
+    return res.status(400).json({ error: 'You cannot add yourself as a friend' });
+  }
+
+  readAllStudents((err, students) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read student data' });
+    }
+
+    const student = students.find(s => s.id === studentId);
+    const friend = students.find(s => s.id === friendId);
+
+    if (!student || !friend) {
+      return res.status(404).json({ error: 'Student or friend not found' });
+    }
+
+    if (student.Friends.includes(friendId)) {
+      return res.status(409).json({ error: 'Already friends' });
+    }
+
+    student.Friends.push(friendId);
+
+    writeAllStudents(students, (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to write student data' });
+      }
+
+      return res.status(200).json({ success: true });
+    });
+  });
+});
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
