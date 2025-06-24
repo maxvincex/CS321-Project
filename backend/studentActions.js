@@ -59,7 +59,6 @@ function removeFriend(studentId, friendId) {
 }
 
 module.exports = {
-  loginStudent,
   addFriend,
   removeFriend
 };
