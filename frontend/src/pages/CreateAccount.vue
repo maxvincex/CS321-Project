@@ -88,6 +88,15 @@
       </div>
 
       <p v-if="availabilityError" class="text-red-600 mb-2">{{ availabilityError }}</p>
+      <label for="bio" class="block font-semibold">Bio</label>
+      <textarea
+        id="bio"
+        v-model="bio"
+        placeholder="Tell us a bit about yourself (max 250 words)..."
+        class="w-full p-2 border rounded mb-1"
+        rows="5"
+        maxlength="1500"
+      ></textarea>
 
       <button
         type="submit"
@@ -114,6 +123,7 @@ const classes = ref('')
 const availabilityWeekday = ref(false)
 const availabilityWeekend = ref(false)
 const availabilityAnytime = ref(false)
+const bio = ref('');
 
 const emailError = ref('')
 const availabilityError = ref('')
@@ -159,6 +169,10 @@ function validateForm() {
     return false
   }
   return true
+  if (bio.value.trim().split(/\s+/).length > 250) {
+  generalError.value = 'Bio must be 250 words or less.';
+  return false;
+  }
 }
 
   function handleCreateAccount() {
@@ -177,15 +191,15 @@ function validateForm() {
     emailError.value = 'An account with this email already exists.';
     return;
   }
-
   const newUser = {
-    email: email.value,
-    password: password.value,
-    firstName: firstName.value,
-    lastName: lastName.value,
-    major: major.value,
-    classes: classes.value.split(',').map(c => c.trim()),
-    availability
+  email: email.value,
+  password: password.value,
+  firstName: firstName.value,
+  lastName: lastName.value,
+  major: major.value,
+  classes: classes.value.split(',').map(c => c.trim()),
+  availability,
+  bio: bio.value.trim(),
   };
 
   users.push(newUser);
