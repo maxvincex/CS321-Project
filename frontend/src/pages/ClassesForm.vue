@@ -1,208 +1,178 @@
 <template>
-  <div class="page-container">
-    <h1 class="title">Manage Your Classes</h1>
+  <div class="manage-classes-container">
+    <h1 class="page-title">Manage Your Classes</h1>
 
-    <form class="form-container" @submit.prevent="handleSubmit">
-      <label for="class-input" class="label">Add Class:</label>
-      <div class="input-group">
-        <input
-          id="class-input"
-          v-model="input"
-          placeholder="e.g. CS321"
-          class="input"
-        />
-        <button type="button" class="add-button" @click="addClass">Add</button>
-      </div>
+    <!-- ADD CLASS -->
+    <div class="form-row">
+      <label for="add-input">Add Class:</label>
+      <input
+        id="add-input"
+        v-model="newCourse"
+        type="text"
+        placeholder="e.g. CS321"
+        class="text-input"
+        @keyup.enter="handleAdd"
+      />
+      <button type="button" class="btn add-btn" @click="handleAdd">
+        Add
+      </button>
+    </div>
 
-      <ul class="class-list">
-        <li v-for="(cls, index) in classList" :key="index">
-          {{ cls }}
-          <button type="button" class="remove-button" @click="removeClass(index)">
-            ✕
-          </button>
-        </li>
+    <!-- CURRENT CLASSES LIST -->
+    <div class="classes-list" v-if="classList.length">
+      <h2>Your Classes:</h2>
+      <ul>
+        <li v-for="c in classList" :key="c">{{ c }}</li>
       </ul>
+    </div>
 
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-      <p v-if="message" class="success">{{ message }}</p>
-
-      <button type="submit" class="submit-button">Submit</button>
-    </form>
+    <!-- SAVE CHANGES -->
+    <button type="button" class="btn save-btn" @click="goBack">
+      Save Changes
+    </button>
   </div>
 </template>
 
 <script>
-import classDB from '../DB.csv?raw'
-
 export default {
-  name: 'ClassesForm',
+  name: "ClassesForm",
   data() {
     return {
-      input: '',
+      newCourse: "",
       classList: [],
-      message: '',
-      errorMessage: '',
-      classDBArray: []
-    }
+      email: "",
+      userId: null,
+    };
   },
-  created() {
-    // Parse CSV and normalize codes like "CS,321" into "CS321"
-    this.classDBArray = classDB
-      .split('\n')
-      .slice(1) // skip header
-      .map(line => line.trim().split(',').slice(0, 2).join('')) // "CS,321" => "CS321" 
-  },
-  methods: {
-    addClass() {
-      const trimmed = this.input.trim().toUpperCase()
-      if (!trimmed) return
-
-      if (!this.classDBArray.includes(trimmed)) {
-        this.errorMessage = `Class "${trimmed}" not found in database`
-        this.message = ''
-        return
-      }
-
-      if (this.classList.includes(trimmed)) {
-        this.errorMessage = `"${trimmed}" is already in your profile`
-        this.message = ''
-        return
-      }
-
-      this.classList.push(trimmed)
-      this.input = ''
-      this.errorMessage = ''
-    },
-    removeClass(index) {
-      this.classList.splice(index, 1)
-      this.errorMessage = ''
-    },
-    async handleSubmit() {
-  if (this.classList.length === 0) {
-    this.errorMessage = "Add at least one class.";
-    this.message = "";
-    return;
-  }
-  
-  const studentId = localStorage.getItem('id'); // Make sure you're storing student ID
-
-   for (const cls of this.classList) {
-    try {
-      const res = await fetch("http://localhost:3001/api/addClass", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studentId, course: cls })
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        throw new Error(result.error || `Unknown error`);
-      }
-
-    } catch (err) {
-      this.errorMessage = `❌ Could not add ${cls}: ${err.message}`;
-      console.error(err);
+  async mounted() {
+    // 1) Grab id/email from localStorage (set by Login.vue)
+    const idStr = localStorage.getItem("id");
+    const email = localStorage.getItem("email");
+    if (!idStr || !email) {
+      console.error("🚨 No user id/email in localStorage");
+      alert("⚠️ You must be logged in to manage classes.");
       return;
     }
-  }
+    this.userId = parseInt(idStr, 10);
+    this.email = email;
 
-  this.message = "✅ All classes added successfully!";
-  this.classList = [];
-}
-  }
-}
+    // 2) Load existing classes
+    await this.reloadClasses();
+  },
+  methods: {
+    async reloadClasses() {
+      try {
+        console.log("Fetching classes for email:", this.email);
+        const res = await fetch(
+          `/api/get-classes?email=${encodeURIComponent(this.email)}`
+        );
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const { classes } = await res.json();
+        this.classList = (classes || []).map((c) => c.toUpperCase());
+        console.log("Loaded classes:", this.classList);
+      } catch (err) {
+        console.error("Failed to load classes:", err);
+        alert("⚠️ Could not load your classes.");
+      }
+    },
+
+    async handleAdd() {
+      const course = this.newCourse.trim().toUpperCase();
+      if (!course) {
+        return alert("Please enter a class code to add.");
+      }
+
+      // DEBUG: log exactly what we’re about to send
+      console.log("POST /api/addClass", {
+        studentId: this.userId,
+        course,
+      });
+
+      try {
+        const res = await fetch("/api/addClass", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            studentId: this.userId,
+            course,
+          }),
+        });
+        const body = await res.json();
+        console.log("Response from addClass:", res.status, body);
+
+        if (!res.ok) {
+          // server sends { error: 'Missing studentId or course' } or { error: 'Invalid course' }
+          return alert(`⚠️ Could not add "${course}": ${body.error}`);
+        }
+
+        alert(`✅ "${course}" added successfully!`);
+        this.newCourse = "";
+        await this.reloadClasses();
+      } catch (err) {
+        console.error("Error in handleAdd:", err);
+        alert(`⚠️ Error adding "${course}": ${err.message}`);
+      }
+    },
+
+    goBack() {
+      this.$router.push("/profile");
+    },
+  },
+};
 </script>
 
 <style scoped>
-.page-container {
+.manage-classes-container {
   max-width: 600px;
   margin: 40px auto;
-  padding: 24px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
 }
-
-.title {
+.page-title {
   text-align: center;
   font-size: 2rem;
-  font-weight: 700;
-  color: #333;
+  margin-bottom: 30px;
+}
+.form-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.label {
+.form-row label {
+  width: 120px;
   font-weight: 500;
-  color: #444;
 }
-
-.input-group {
-  display: flex;
-  gap: 8px;
-}
-
-.input {
+.text-input {
   flex: 1;
-  padding: 8px 12px;
-  font-size: 1rem;
+  padding: 8px;
+  margin-right: 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 4px;
 }
-
-.add-button,
-.submit-button {
-  background-color: #4a4ae6;
-  color: white;
-  border: none;
+.btn {
   padding: 8px 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.add-button:hover,
-.submit-button:hover {
-  background-color: #3737b5;
-}
-
-.class-list {
-  list-style: none;
-  padding: 0;
-}
-
-.class-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 4px;
-  background-color: #f9f9f9;
-}
-
-.remove-button {
-  background: none;
-  color: red;
   border: none;
-  font-size: 1rem;
+  border-radius: 4px;
+  font-weight: 500;
   cursor: pointer;
 }
-
-.error {
-  color: red;
-  font-weight: 500;
+.add-btn {
+  background-color: #4caf50;
+  color: white;
 }
-
-.success {
-  color: green;
-  font-weight: 500;
+.save-btn {
+  width: 100%;
+  margin-top: 40px;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 1rem;
+}
+.classes-list {
+  margin-top: 30px;
+}
+.classes-list ul {
+  list-style: disc inside;
+}
+.classes-list li {
+  margin-bottom: 4px;
 }
 </style>
