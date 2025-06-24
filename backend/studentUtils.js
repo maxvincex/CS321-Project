@@ -6,6 +6,14 @@ const { createObjectCsvWriter } = require('csv-writer');
 
 const filePath = path.join(__dirname, 'students.csv');
 
+function safeParseArray(field) {
+  try {
+    const parsed = JSON.parse(field);
+    return Array.isArray(parsed) ? parsed.map(c => c.trim().toUpperCase()) : [];
+  } catch (e) {
+    return [];
+  }
+}
 function readAllStudents(callback) {
   const students = [];
   fs.createReadStream(filePath)
