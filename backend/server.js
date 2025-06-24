@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const getFriendsRoute = require('./getFriends'); //mounting the route for get friends
+const getFriendsRoute = require('./addFriend'); //mounting the route for get friends
 const { insertStudent } = require('./insertstudent');
 const { getStudent } = require('./getstudent');
 const { getAllCourses } = require('./readCourses'); 
