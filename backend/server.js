@@ -9,6 +9,7 @@ const { addCourseToStudent, removeCourseFromStudent } = require('./updateStudent
 const { mainMatch } = require('./searchAlgorithm');
 const { readAllStudents } = require('./studentUtils');
 const { addFriend } = require('./studentActions');
+const { writeAllStudents } = require('./studentUtils');
 
 const app = express();
 const PORT = 3001;
@@ -165,7 +166,7 @@ app.get('/api/students', (req, res) => {
   });
 });
 
-app.post('/api/connect', (req, res) => {
+/*app.post('/api/connect', (req, res) => {
   const { studentId, friendId } = req.body;
 
   if (!studentId || !friendId) {
@@ -202,6 +203,22 @@ app.post('/api/connect', (req, res) => {
       return res.status(200).json({ success: true });
     });
   });
+});
+*/
+
+app.post('/api/connect', (req, res) => {
+  const { studentId, friendId } = req.body;
+
+  if (!studentId || !friendId) {
+    return res.status(400).json({ error: 'Missing studentId or friendId' });
+  }
+
+  if (studentId === friendId) {
+    return res.status(400).json({ error: 'You cannot add yourself as a friend' });
+  }
+
+  addFriend(Number(studentId), Number(friendId)); // Reuse shared logic
+  return res.status(200).json({ success: true });
 });
 // Start server
 app.listen(PORT, () => {

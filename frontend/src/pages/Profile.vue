@@ -144,7 +144,9 @@ export default {
         this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
         this.major = profile.Major || "Computer Science";
         this.classes = profile.Courses || [];
-        this.availability = profile.Availability || "";
+        this.availability = Array.isArray(profile.Availability)
+          ? profile.Availability.join(", ")
+          : profile.Availability || ""
         this.bio = profile.Bio || "This is your default bio.";
 
         const friendIds = Array.isArray(profile.Friends)

@@ -4,4 +4,4 @@ id,FirstName,LastName,Email,Password,Courses,Availability,Friends,Bio
 3,test,lastname,Rowsar@anything.com,mypassword123,"[""CS262"",""CS310"",""CS100""]","[""anytime""]","[""[1"",""2]""]",test
 4,qwerty,uiop,Rowsr@anything.com,abcd12234,"[""CS262"",""CS310"",""CS100""]","[""anytime""]","[""[1"",""2]""]",asdfg
 5,rowan,test,rowan@example.com,abcd12234,"[""CS262"",""CS310"",""CS100""]","[""anytime""]","[""[1"",""2]""]",example bio
-6,Gesu,Mahmadshoeva,gesu12@gmail.com,Gesu1212,"[""CS330"",""CS321"",""CS262""]","[""weekends""]",[],
+6,Gesu,Mahmadshoeva,gesu12@gmail.com,Gesu1212,"[""CS330"",""CS321"",""CS262""]","[""weekends""]","[""[\""[\\\""[1]\\\""\"""",""\""3]\"""",""3]"",5]",

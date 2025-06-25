@@ -17,6 +17,13 @@ function addFriend(studentId, friendId) {
     const student = students.find(s => s.id === studentId);
     const friend = students.find(s => s.id === friendId);
 
+    if (student && typeof student.Friends === 'string') {
+      try {
+        student.Friends = JSON.parse(student.Friends);
+      } catch {
+        student.Friends = [];
+      }
+    }
     if (!student) return console.log('❌ Student not found.');
     if (!friend) return console.log('❌ Friend ID not found.');
 
@@ -43,6 +50,13 @@ function removeFriend(studentId, friendId) {
     if (err) return console.error('❌ Error reading students:', err);
 
     const student = students.find(s => s.id === studentId);
+    if (student && typeof student.Friends === 'string') {
+      try {
+        student.Friends = JSON.parse(student.Friends);
+      } catch {
+        student.Friends = [];
+      }
+    }
     if (!student) return console.log('❌ Student not found.');
 
     if (!student.Friends.includes(friendId)) {
