@@ -136,51 +136,54 @@ export default {
       return;
     }
 
-    const studentId = email.includes("@") ? email.split("@")[0] : "testuser";
-    console.log("Loading profile for studentId:", studentId);
-
-    // Fetch profile
     fetch(`http://localhost:3001/api/profile?email=${encodeURIComponent(email)}`)
-    .then((res) => res.json())
-    .then((profile) => {
-      this.firstName = profile.FirstName || ""; //first and last name aren't stored in the students.csv either
-      this.lastName = profile.LastName || "";
-      this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
-      this.major = profile.Major || "Computer Science"; //isn't stored in the students.csv
-      this.classes = profile.Courses || [];
-      this.friends = profile.Friends || [];
-      this.availability = profile.Availability || "";
-      this.bio = profile.Bio || "This is your default bio."; //not stored in students.csv either
-    })
-    .catch((err) => {
-      console.error("Failed to load profile:", err);
-      alert("Unable to load your profile.");
-    });
+      .then((res) => res.json())
+      .then((profile) => {
+        this.firstName = profile.FirstName || "";
+        this.lastName = profile.LastName || "";
+        this.initials = `${this.firstName[0] || ""}${this.lastName[0] || ""}`.toUpperCase();
+        this.major = profile.Major || "Computer Science";
+        this.classes = profile.Courses || [];
+        this.availability = profile.Availability || "";
+        this.bio = profile.Bio || "This is your default bio.";
 
-  fetch(`http://localhost:3002/friends/${studentId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      this.friends = data.friends.map((username, index) => ({
-        id: index + 1,
-        name: username,
-        initials: (username[0] || "U").toUpperCase(),
-      }));
-    })
-    .catch((err) => {
-      console.error("Failed to load friends:", err);
-    });
+        const friendIds = Array.isArray(profile.Friends)
+        ? profile.Friends.map((id) => parseInt(id))
+        : [];
 
+        fetch("http://localhost:3001/api/students")        .then((res) => res.json())
+          .then((allStudents) => {
+            this.friends = allStudents
+              .filter((student) => friendIds.includes(parseInt(student.id)))
+              .map((student) => ({
+                id: student.id,
+                name: `${student.FirstName} ${student.LastName}`,
+                initials: `${student.FirstName[0]}${student.LastName[0]}`.toUpperCase(),
+              }));
+              //this.friends = matchedFriends;
+          })
+          .catch((err) => {
+            console.error("Failed to load student list for friend details:", err);
+          });
+      })
+      .catch((err) => {
+        console.error("Failed to load profile:", err);
+        alert("Unable to load your profile.");
+      });
   },
+
   methods: {
     disconnect(friendId) {
       this.friends = this.friends.filter((friend) => friend.id !== friendId);
     },
+
     getClassColor(cls) {
-      if (cls.includes("CS")) return "blue";
-      if (cls.includes("BIO") || cls.includes("HIST")) return "red";
+      if (cls.includes("CS") || cls.includes("MATH")) return "blue";
+      if (cls.includes("BIO") || cls.includes("HIST") || cls.includes("ENG")) return "red";
       if (cls.includes("GOV") || cls.includes("GEOL")) return "green";
       return "gray";
     },
+
     editClasses() {
       this.$router.push("/edit-classes");
     },
