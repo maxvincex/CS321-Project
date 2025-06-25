@@ -1,96 +1,120 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { nextTick } from 'vue'
-import ClassesForm from '../src/pages/ClassesForm.vue'
+import ClassesForm from '@/pages/ClassesForm.vue'
 
-// Fake class database
-const mockClassDatabase = ['CS101', 'MATH202', 'ENGL150']
+vi.stubGlobal('alert', vi.fn())
+vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({
+  ok: true,
+  json: () => Promise.resolve({ classes: [] }),
+})))
 
 describe('ClassesForm.vue', () => {
   let wrapper
 
-  beforeEach(() => {
-    wrapper = mount(ClassesForm, {
-      props: {
-        availableClasses: mockClassDatabase
-      }
-    })
+  beforeEach(async () => {
+    localStorage.setItem('id', '1')
+    localStorage.setItem('email', 'test@example.com')
+
+    fetch.mockClear()
+    wrapper = mount(ClassesForm)
+    await nextTick()
   })
 
-  it('renders heading, input, and buttons', () => {
-    expect(wrapper.find('[data-testid="form-title"]').exists()).toBe(true)
-    expect(wrapper.find('[data-testid="class-input"]').exists()).toBe(true)
-    expect(wrapper.find('[data-testid="add-button"]').exists()).toBe(true)
-    expect(wrapper.find('[data-testid="submit-button"]').exists()).toBe(true)
+  it('renders heading and inputs', () => {
+    expect(wrapper.find('.page-title').exists()).toBe(true)
+    expect(wrapper.find('#add-input').exists()).toBe(true)
+    expect(wrapper.find('#remove-input').exists()).toBe(true)
+    expect(wrapper.find('.add-btn').exists()).toBe(true)
+    expect(wrapper.find('.save-btn').exists()).toBe(true)
   })
 
   it('adds a valid class to the list', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('CS101')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    expect(wrapper.findAll('[data-testid="class-item"]')).toHaveLength(1)
-    expect(wrapper.html()).toContain('CS101')
-  })
+    fetch.mockReset()
 
-  it('shows error for invalid class', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('INVALID123')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    expect(wrapper.find('[data-testid="error-message"]').exists()).toBe(true)
-  })
-
-  it('prevents duplicate class entries', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('CS101')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    await input.setValue('CS101')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    expect(wrapper.findAll('[data-testid="class-item"]')).toHaveLength(1)
-  })
-
-  it('clears input after adding a class', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('MATH202')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    expect(input.element.value).toBe('')
-  })
-
-  it('does not add empty or whitespace class', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('    ')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    expect(wrapper.findAll('[data-testid="class-item"]')).toHaveLength(0)
-  })
-
-  it('deletes a class when "X" is clicked', async () => {
-    const wrapper = mount(ClassesForm)
-
-    const input = wrapper.find('[data-testid="class-input"]')
-    const addButton = wrapper.find('[data-testid="add-button"]')
-
-    await input.setValue('CS101')
-    await addButton.trigger('click')
-
+    fetch
+      .mockImplementationOnce(() => Promise.resolve({  // POST /addClass
+        ok: true,
+        json: () => Promise.resolve({ success: true }),
+      }))
+      .mockImplementationOnce(() => Promise.resolve({  // GET /get-classes
+        ok: true,
+        json: () => Promise.resolve({ classes: ['CS321'] }),
+      }))
+  
+    wrapper = mount(ClassesForm)
     await nextTick()
 
-    let classItems = wrapper.findAll('[data-testid="class-item"]')
-    expect(classItems.length).toBe(1)
+    await wrapper.find('#add-input').setValue('CS321')
+    await wrapper.find('.add-btn').trigger('click')
 
-    const deleteButton = wrapper.find('[data-testid="delete-button"]')
-    expect(deleteButton.exists()).toBe(true)
-
-    await deleteButton.trigger('click')
     await nextTick()
-
-    classItems = wrapper.findAll('[data-testid="class-item"]')
-    expect(classItems.length).toBe(0)
+    await nextTick()  // for classList update from reloadClasses()
+  
+    
+    expect(alert).toHaveBeenCalledWith('✅ "CS321" added successfully!')
+    expect(wrapper.text()).toContain('CS321') // will now pass
   })
 
-  it('shows success message after submitting classes', async () => {
-    const input = wrapper.find('[data-testid="class-input"]')
-    await input.setValue('CS101')
-    await wrapper.find('[data-testid="add-button"]').trigger('click')
-    await wrapper.find('[data-testid="submit-button"]').trigger('click')
-    expect(wrapper.find('[data-testid="success-message"]').exists()).toBe(true)
+  it('shows alert when adding empty input', async () => {
+    await wrapper.find('#add-input').setValue(' ')
+    await wrapper.find('.add-btn').trigger('click')
+    expect(alert).toHaveBeenCalledWith('Please enter a class code to add.')
+  })
+
+  it('calls reloadClasses on successful add', async () => {
+    const reloadSpy = vi.spyOn(wrapper.vm, 'reloadClasses')
+    fetch.mockImplementationOnce(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ success: true }),
+    }))
+    fetch.mockImplementationOnce(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({ classes: ['CS101'] }),
+    }))
+
+    await wrapper.find('#add-input').setValue('CS101')
+    await wrapper.find('.add-btn').trigger('click')
+    await nextTick()
+
+    expect(reloadSpy).toHaveBeenCalled()
+  })
+
+  it('shows alert when removing empty input', async () => {
+    await wrapper.find('#remove-input').setValue(' ')
+    await wrapper.find('.action-btn').trigger('click')
+    expect(alert).toHaveBeenCalledWith('Please enter a class code to remove.')
+  })
+
+  it('shows alert for trying to remove class not in list', async () => {
+    alert.mockClear()
+  
+    fetch.mockReset()
+    fetch.mockImplementation((url) => {
+      if (url.includes('get-classes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ classes: ['CS101'] }),
+        })
+      } else if (url.includes('removeClass')) {
+        // Simulate failure or bypass removal logic
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ success: false }),
+        })
+      }
+      return Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
+    })
+  
+    wrapper = mount(ClassesForm)
+    await nextTick()
+  
+    // Set list manually in case fetch overrides
+    wrapper.vm.classList = ['CS101']
+    await wrapper.find('#remove-input').setValue('MATH202')
+    await wrapper.find('.action-btn').trigger('click')
+    await nextTick()
+  
+    expect(alert).toHaveBeenCalledWith(`⚠️ You don't have "MATH202" to remove.`)
   })
 })
