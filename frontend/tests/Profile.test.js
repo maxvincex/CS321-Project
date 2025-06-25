@@ -8,11 +8,31 @@ import router from '@/router';
 
 // Suppress alert since jsdom doesn't implement it
 vi.stubGlobal('alert', vi.fn());
-vi.stubGlobal('fetch', vi.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ friends: [] })
-  })
-));
+vi.stubGlobal('fetch', vi.fn((url) => {
+  if (url.includes('/api/profile')) {
+    return Promise.resolve({
+      json: () => Promise.resolve({
+        FirstName: 'Gesu',
+        LastName: 'Mahmadshoeva',
+        Major: 'CS',
+        Courses: ['CS321', 'CS310'],
+        Availability: ['anytime', 'weekends'],
+        Bio: 'Test bio here',
+        Friends: []
+      })
+    });
+  }
+
+  if (url.includes('/api/students')) {
+    return Promise.resolve({
+      json: () => Promise.resolve([])
+    });
+  }
+
+  return Promise.resolve({
+    json: () => Promise.resolve({})
+  });
+}));
 
 describe('Profile.vue', async () => {
   beforeEach(() => {
@@ -51,9 +71,33 @@ describe('Profile.vue', async () => {
   });
   
   it('renders no classes if list is empty (fallback: renders nothing)', async () => {
-    localStorage.setItem('classes', JSON.stringify([]));
-    const wrapper = mount(Profile, { global: { plugins: [router] } });
-    await flushPromises();
+  // Override fetch mock specifically for this test
+  vi.stubGlobal('fetch', vi.fn((url) => {
+    if (url.includes('/api/profile')) {
+      return Promise.resolve({
+        json: () => Promise.resolve({
+          FirstName: 'Gesu',
+          LastName: 'Mahmadshoeva',
+          Major: 'CS',
+          Courses: [], // ⬅ empty classes!
+          Availability: ['anytime'],
+          Bio: 'This is a test bio.',
+          Friends: []
+        })
+      });
+    }
+
+    if (url.includes('/api/students')) {
+      return Promise.resolve({
+        json: () => Promise.resolve([])
+      });
+    }
+
+    return Promise.resolve({ json: () => Promise.resolve({}) });
+  }));
+
+  const wrapper = mount(Profile, { global: { plugins: [router] } });
+  await flushPromises();
 
     // no class pills are rendered
     const classPills = wrapper.findAll('.pill');

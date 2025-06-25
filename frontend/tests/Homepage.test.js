@@ -1,8 +1,12 @@
 import { mount, flushPromises } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createRouter, createWebHistory } from 'vue-router';
-import Homepage from '@/pages/Homepage.vue';
+import * as vueRouter from 'vue-router';
 
+const routerPushSpy = vi.fn();
+vi.spyOn(vueRouter, 'useRouter').mockReturnValue({ push: routerPushSpy });
+
+import Homepage from '@/pages/Homepage.vue';
 describe('Homepage.vue', () => {
   let wrapper;
   let router;
@@ -50,14 +54,13 @@ describe('Homepage.vue', () => {
       })
     );
 
+    // Mount after mocking useRouter
+    const wrapper = mount(Homepage);
+
     // Fill in form fields
     await wrapper.find('#email').setValue('user@example.com');
     await wrapper.find('#password').setValue('CorrectPass1');
-
-    // Trigger sign-in
-    const btn = wrapper.find('form button[type="submit"]');
-    await btn.trigger('click');
-
+    await wrapper.find('form').trigger('submit.prevent');
     // Wait for all promises to resolve (e.g., fetch + router.push)
     await flushPromises();
 
