@@ -9,11 +9,20 @@ const filePath = path.join(__dirname, 'students.csv');
 function safeParseArray(field) {
   try {
     const parsed = JSON.parse(field);
-    return Array.isArray(parsed) ? parsed.map(c => c.trim().toUpperCase()) : [];
+    return Array.isArray(parsed)
+      ? parsed.map(item => item.trim())
+      : [];
   } catch (e) {
+    // fallback: convert single string like "weekends" to ["weekends"]
+    if (typeof field === "string") {
+      return field.includes(",")
+        ? field.split(",").map(f => f.trim())
+        : [field.trim()];
+    }
     return [];
   }
 }
+
 function readAllStudents(callback) {
   const students = [];
   fs.createReadStream(filePath)
@@ -25,9 +34,9 @@ function readAllStudents(callback) {
         LastName: row.LastName,
         Email: row.Email,
         Password: row.Password,
-        Courses: JSON.parse(row.Courses),
-        Availability: row.Availability,
-        Friends: JSON.parse(row.Friends),
+        Courses: safeParseArray(row.Courses),
+        Availability: safeParseArray(row.Availability),
+        Friends: safeParseArray(row.Friends),
         Major: row.Major,
         Bio: row.Bio
       });
@@ -59,7 +68,7 @@ function writeAllStudents(students, callback) {
     Email: s.Email,
     Password: s.Password,
     Courses: JSON.stringify(s.Courses),
-    Availability: s.Availability,
+    Availability: JSON.stringify(s.Availability),
     Friends: JSON.stringify(s.Friends),
     Bio: s.Bio
   }));
@@ -69,4 +78,4 @@ function writeAllStudents(students, callback) {
     .catch(err => callback(err));
 }
 
-module.exports = { readAllStudents, writeAllStudents };
+module.exports = { readAllStudents, writeAllStudents, safeParseArray};

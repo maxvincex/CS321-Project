@@ -38,7 +38,9 @@
               >
               <span>
                 {{ student.FirstName }} {{ student.LastName }} —
-                {{ student.Availability || 'N/A' }} 
+                {{ Array.isArray(student.Availability) && student.Availability.length > 0
+                  ? student.Availability.join(', ')
+                  : 'N/A' }}
                 ({{ student.Courses?.join(', ') || 'No courses' }})
               </span>                
               <button class="connect-btn"@click="connectToStudent(student.id)">Connect</button>
@@ -69,8 +71,8 @@ export default {
       searchQuery: "",
       selectedTime: "",
       myAvailability: (localStorage.getItem("availability") || "anytime,weekends").split(","),
-      myId: localStorage.getItem("userId")
-        ? parseInt(localStorage.getItem("userId"))
+      myId: localStorage.getItem("id")
+        ? parseInt(localStorage.getItem("id"))
         : null,
       myConnections: JSON.parse(localStorage.getItem("connections") || "[]"),
     };

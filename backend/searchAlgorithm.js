@@ -15,16 +15,12 @@ const { readAllStudents } = require('./studentUtils');
   function classFilter(studentDatabase, targetClass, myId) { 
     if (!Array.isArray(studentDatabase) || !targetClass) return null; 
       const filtered = studentDatabase.filter(student => 
-      student.id !== myId && student.Courses.includes(targetClass) 
-  ); 
+        parseInt(student.id) !== parseInt(myId) && // exclude current user searching
+        Array.isArray(student.Courses) &&          // errors if Courses is missing
+        student.Courses.includes(targetClass)
+      );
   return filtered.length > 0 ? filtered : null; 
-} 
-
- 
-
- 
-
-   
+}  
 
 /** 
  * Filters students based on shared availability time. 
@@ -55,8 +51,15 @@ function timeFilter(classFilteredList, myAvailability) {
   } 
  
   return classFilteredList.filter(student => { 
-    const studentAvailability = student.Availability?.toLowerCase().trim(); 
-    return myAvailabilityArray.includes(studentAvailability) || studentAvailability === "anytime"; 
+    const studentAvailabilityArray = Array.isArray(student.Availability)
+    ? student.Availability.map(a => a.toLowerCase().trim())
+    : [student.Availability?.toLowerCase().trim()];    
+    
+    //return myAvailabilityArray.includes(studentAvailability) || studentAvailability === "anytime"; 
+    return (
+      studentAvailabilityArray.includes("anytime") ||
+      myAvailabilityArray.some(a => studentAvailabilityArray.includes(a))
+    );
   }); 
 } 
  
@@ -161,7 +164,10 @@ function mainMatch(studentDatabase, targetClass, myId, myAvailability, myConnect
   const connectTimeFiltered = connectFilter(timeFiltered, myConnections); 
   const connectClassFilter = connectFilter(classFiltered, myConnections); 
  
-  return resultMethod(classFiltered, timeFiltered, connectTimeFiltered, connectClassFilter); 
+  const finalList = resultMethod(classFiltered, timeFiltered, connectTimeFiltered, connectClassFilter);
+
+  return finalList?.filter(student => parseInt(student.id) !== parseInt(myId)) || null;
+  //return resultMethod(classFiltered, timeFiltered, connectTimeFiltered, connectClassFilter); 
 } 
  
 module.exports = { 
